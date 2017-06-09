@@ -1,0 +1,336 @@
+<md-content layout-padding>
+     <md-content>
+            <md-tabs md-dynamic-height md-border-bottom md-selected="sp.selectedTab">
+                <md-tab label="Appointment">
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">Appointment Definition</div>
+        <div class="panel-body">
+            <form name="sp.appointmentForm" layout="column" novalidate ng-cloak class="md-inline-form" ng-submit="sp.appointmentForm.$valid && sp.nextTab()">
+                <div layout-gt-sm="row">
+                    <h3>{{ sp.spData.name }}</h3>
+                </div>
+                <div layout-gt-sm="row">
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Appointment Name</label>
+                                <input name="appointmentName" type="text" ng-model="sp.appData.appointmentName" autocomplete="off" required>
+                                <div ng-messages="sp.appointmentForm.appointmentName.$error">
+                                    <div ng-message="required">Appoinment Name is required!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Appointment ID</label>
+                                <input name="appointmentId" disabled type="text" ng-model="sp.appData.appointmentID">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Appointment Type</label>
+                                <md-select name="appointmentType" id="appointmentType" ng-model="sp.appData.appointmentType" ng-required="true">
+                                    <md-option ng-repeat="appointmentType in sp.appointmentType track by $index" ng-selected="{{ appointmentType === sp.selectedValue ? 'true' : 'false' }}" value="{{appointmentType}}">{{appointmentType}}</md-option>
+                                </md-select>
+                                <div ng-messages="sp.appointmentForm.appointmentType.$error" >
+                                    <div ng-message="required">Appointment type is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Appointment Category</label>
+                                <md-select name="appointmentCategory" ng-model="sp.appData.appointmentCategory" required ng-change="sp.GetSubAppointmentCategory()">
+                                    <md-option ng-repeat="appointmentCategory in sp.appointmentCategory" ng-selected="{{ appointmentCategory === sp.categoryselectedValue ? 'true' : 'false' }}" value="{{appointmentCategory}}">{{appointmentCategory}}</md-option>
+                                </md-select>
+                                <div ng-messages="sp.appointmentForm.appointmentCategory.$error">
+                                    <div ng-message="required">Appointment Category is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Appointment Sub Category</label>
+                                <md-select name="appoinmentSubCategory" ng-model="sp.appData.appoinmentSubCategory" >
+                                    <md-option ng-repeat="appoinmentSubCategory in sp.appoinmentSubCategory" ng-selected="{{ appoinmentSubCategory === sp.subcategoryselectedValue ? 'true' : 'false' }}" value="{{appoinmentSubCategory}}">{{appoinmentSubCategory}}</md-option>
+                                </md-select>
+                                <div ng-messages="sp.appointmentForm.appoinmentSubCategory.$error">
+                                    <div ng-message="required">Appointment Sub Category is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>No of Employees</label>
+                                <input type="number" name="noOfEmployees" ng-model="sp.appData.noOfEmployees"  ng-change="sp.changeEmpDisplayValues()" required>
+                                <div ng-messages="sp.appointmentForm.noOfEmployees.$error">
+                                    <div ng-message="required">Employee count is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Employees</label>
+                                <md-select ng-model="sp.appData.displayEmployee" multiple="true" ng-change="sp.displayEmployeeSelection()" >
+                                    <md-option ng-repeat="displayEmployee in sp.displayEmployee" ng-value="displayEmployee.id"  ng-init="">{{displayEmployee.name}}</md-option>
+                                </md-select>
+                                <div ng-messages="sp.appointmentForm.displayEmployee.$error">
+                                    <div ng-message="required">Employee list is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Average Appoinment Time(minute)</label>
+                                <input name="averageAppTime" type="text" ng-model="sp.appData.averageAppTime"  autocomplete="off" required ng-pattern="/^\d{0,9}(\.\d{1,9})?$/">
+                                <div class="hint">##</div>
+                                <div ng-messages="sp.appointmentForm.averageAppTime.$error">
+                                    <div ng-message="required">Average appointment time is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                      
+                      
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block " flex-gt-sm>
+                                <div ngf-drop ngf-select ng-model="sp.appData.files" ng-change="sp.knowledgeBaseFileChange()" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf,.txt,.doc,.docx,.xls'" ngf-pattern="'image/*,application/pdf,.txt,.doc,.docx,.xls'">Drop Knowledgebase Files here or click here to upload</div>
+                                <ul>
+                                    <li ng-repeat="f in sp.appData.files track by $index" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
+                                        <i class="icon-close" ng-click="sp.deletedLoadedKBFiles(f.name + f.lastModified)" style="cursor: pointer;float: right; margin-right: 10px;"></i>
+                                    </li>
+                                </ul>
+                            </md-input-container>
+                                                                       
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6"    ng-init="sp.appData.timeFormat = !sp.appData.timeFormat ? '12' : sp.appData.timeFormat;">
+                          <div layout-gt-sm="row">
+                            <md-content class="md-block" flex-gt-sm>
+                                <md-checkbox ng-model="sp.appData.spot" aria-label="Checkbox 1">Walk in SPOT/Q</md-checkbox>
+                            </md-content>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Status</label>
+                                <md-select name="status" ng-model="sp.appData.status" required>
+                                    <md-option ng-repeat="status in sp.status" value="{{status}}">{{status}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row"> 
+                            <md-content class="md-block" flex-gt-sm>
+                                <label>Effective Start Date</label>
+                                <md-datepicker name="effectiveFrom" ng-model="sp.appData.effectiveFrom" md-placeholder="Effective From Date" ng-change="sp.validateDate(sp.appointmentForm.effectiveFrom,1)" required></md-datepicker>
+                                <div class="validation-messages" ng-messages="sp.appointmentForm.effectiveFrom.$error">
+                                    <div ng-message="required">Effective from-date is required!</div>
+                                    <div ng-repeat="errorMessage in sp.eDerrorMessages">                                  
+                                         <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                </div>
+                            </md-content>
+                            <md-content class="md-block" flex-gt-sm>
+                                <label>Effective End Date</label>
+                                <md-datepicker name="effectiveTo" ng-model="sp.appData.effectiveTo" md-placeholder="Effective To Date" ng-change="sp.validateDate(sp.appointmentForm.effectiveTo,2)" required></md-datepicker>
+                                <div class="validation-messages" ng-messages="sp.appointmentForm.effectiveTo.$error">
+                                    <div ng-message="required">Effective to-date is required!</div>
+                                     <div ng-repeat="errorMessage in sp.eDerrorMessages">                                  
+                                         <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                </div>
+                            </md-content>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Time Zone</label>
+                                <!-- <input ng-model="sp.appData.timeZone"> -->
+                                <timezone-selector ng-model="sp.appData.timeZone" display-utc="true" sort-by="offset" show-local="true" set-local="true" primary-choices="UTC GB WET GMT Asia/Macau" width="400px" >
+                            </md-input-container>
+                            <md-input-container class="md-block " flex-gt-sm>
+                                <label>Time Format:</label> 
+                                <md-switch ng-model="sp.appData.timeFormat" aria-label="Time Format" ng-true-value="'24'" ng-false-value="'12'" class="md-warn" style="float: right;width: 50%; margin:0px !important;" ng-change="sp.patternValid =  sp.appData.timeFormat == '12' ? sp.patterAmPm : sp.patternRailway;">
+                                    {{ sp.appData.timeFormat }}
+                                </md-switch>
+                            </md-input-container>                                          
+                        </div>
+                       
+                        <div layout-gt-sm="row" >
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Start time</label>
+                                <input  name="startTime" type="text" ng-model="sp.appData.startTime1" autocomplete="off" required ng-pattern="sp.patternValid">                                
+                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.appData.timeFormat==12" ><button type="button" class="btn btn-default btn-sm" ng-click="sp.toggle(1)" ng-init="sp.appData.startampm = 'AM'" ng-model="sp.appData.startampm" >{{sp.appData.startampm}}</button></div>
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="sp.appointmentForm.startTime.$error">
+                                    <div ng-message="required">Working hours is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm >
+                                <label>End time</label>
+                                <input name="endTime" type="text" ng-model="sp.appData.endTime1" autocomplete="off" ng-blur="sp.validateTime(sp.appointmentForm.endTime)" required ng-pattern="sp.patternValid" ng-disabled="!sp.appData.startTime1">
+                               <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.appData.timeFormat==12" ><button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.appData.startTime1" ng-click="sp.toggle(2,sp.appointmentForm.endTime)" ng-init="sp.appData.endampm = 'AM'" ng-model="sp.appData.endampm" >{{sp.appData.endampm}}</button></div>
+                                <div class="hint">## : ##</div>                             
+                                <div ng-messages="sp.appointmentForm.endTime.$error" role="alert">
+                                    <div ng-message="required">Working hours is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>                             
+                                    <div ng-repeat="errorMessage in sp.eTeerrorMessages">                                  
+                                         <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Break Start time</label>
+                                <input name="breakStartTime" type="text" ng-model="sp.appData.breakStartTime1" ng-blur="sp.validateTime(sp.appointmentForm.breakStartTime)" autocomplete="off" required ng-pattern="sp.patternValid" ng-disabled="!sp.appData.endTime1">
+                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.appData.timeFormat==12" ><button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.appData.endTime1" ng-click="sp.toggle(3,sp.appointmentForm.breakStartTime)" ng-init="sp.appData.breakstartampm = 'AM'" ng-model="sp.appData.breakstartampm" >{{sp.appData.breakstartampm}}</button></div>
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="sp.appointmentForm.breakStartTime.$error">
+                                    <div ng-message="required">Break start time is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                    <div ng-repeat="errorMessage in sp.bSerrorMessages">                                  
+                                         <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Break End time</label>
+                                <input name="breakEndTime" type="text" ng-model="sp.appData.breakEndTime1" ng-blur="sp.validateTime(sp.appointmentForm.breakEndTime)" autocomplete="off" required ng-pattern="sp.patternValid" ng-disabled="!sp.appData.breakStartTime1">
+                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.appData.timeFormat==12" ><button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.appData.breakStartTime1" ng-click="sp.toggle(4,sp.appointmentForm.breakEndTime)" ng-init="sp.appData.breakendampm = 'AM'" ng-model="sp.appData.breakendampm" >{{sp.appData.breakendampm}}</button></div>
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="sp.appointmentForm.breakEndTime.$error">
+                                    <div ng-message="required">Break end time is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                    <div ng-repeat="errorMessage in sp.bEerrorMessages">                                  
+                                         <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                          
+                                            
+                          </form>
+                        <div layout="row" layout-align="center start">
+                            <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="sp.appointmentForm.$invalid" >Next</md-button>                   
+                            <md-button class="md-raised md-warn" flex="30" ng-click="sp.cancel()">Cancel</md-button>
+                           
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+
+     <div class="row show-hide-message" ng-show="sp.message">
+        <div class="col-sm-6 col-sm-offset-2">
+
+            <div class="alert alert-info">
+                {{ sp.message }}
+            </div>
+
+        </div>
+    </div>
+    </md-tab>
+
+   <md-tab label="Requirement" data-ng-click="" id="secondTab"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold">Service provider Requirements</div>
+                        <div class="panel-body">
+                           <form name="sp.requirementform" layout="column" novalidate ng-cloak class="md-inline-form" ng-submit="sp.appointmentForm.$valid  && sp.defineAppointment() ">
+                                <div layout-gt-sm="row">
+                                    <h3>{{ sp.spData.name }}</h3>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Serviceprovider ID</label>
+                                        <input name="spId" disabled type="text" ng-model="sp.spData.id ">
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm style="margin-top: 9px;text-align: right;">
+                                        <button type="button" class="btn m-b-xs btn-sm btn-primary btn-addon m-xs"  ng-click="sp.addRequirement()"><i class="fa fa-plus"></i>Add another Requirement</button>
+                                    </md-input-container>
+                                </div>
+                                <div class="col-sm-11">
+                                    <div class="form-group">
+                                        <label class="col-sm-3">Requirement 1</label>
+                                        <div class="col-sm-6">
+                                            <textarea class="form-control" name="requirement1" ng-model="sp.questions[0]" rows="6" placeholder="Type your Requirement" required></textarea>
+                                            
+                                        </div>    
+                                        <div ng-messages="sp.requirementform.requirement1.$error">
+                                            <div ng-message="required">Requirement 1 is required!</div>
+                             
+                                        </div>                                                                                                          
+                                    </div>
+                                    <div  id="requirement" ng-repeat="index in sp.indexValues" style="margin-top: 30px;position: relative;display: block;float: left;width: 100%;">
+               
+                                            <div class="form-group " >
+                                                <label class="col-sm-3">Requirement {{index}}</label>
+                                                <div class="col-sm-6">
+                                                    <textarea ng-model="sp.questions[index-1]" class="form-control " rows="6" placeholder="Type your Requirement" required></textarea>                                            
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="checkbox " style:"float:right !important;">
+                                                        <label class="i-checks"><input type="checkbox" value="" ng-model="sp.required[index-1]"><i></i>Mandatory</label><br/></br/>
+                                                        <button type="button" class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="sp.removeRequirement(index)"><i class="fa fa-trash-o"></i>Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>                                                                                  
+                                    </div>
+                                    
+                                </div> 
+                                 <div class="col-sm-6">
+                                <div layout="row" layout-align="center start" style="margin-top: 30px">                                       
+                                            <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="sp.appointmentForm.$invalid || sp.requirementform.$invalid" ng-if="sp.toEdit != true">Submit</md-button>
+                                            <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="sp.appointmentForm.$invalid || sp.requirementform.$invalid" ng-if="sp.toEdit == true">Update</md-button>
+                                            <md-button class="md-raised md-warn" flex="30" ng-click="sp.cancel()">Cancel</md-button>
+                                            <!--<md-button href="/serviceprovider/profile" class="md-raised md-primary" flex="30" ">Serviceprovider Profile</md-button>-->
+                                </div>  
+                                </div>         
+                            </form> 
+                        </div>
+                    </div>
+
+                    <div class="row show-hide-message" ng-show="sp.message">
+                        <div class="col-sm-6 col-sm-offset-2">
+                            <div class="alert alert-info">
+                                {{ sp.message }}
+                            </div>
+                        </div>
+                    </div>
+                    </md-tab>
+
+            <md-tab label="Knowledge Base" ng-disabled="sp.disableKnowlegebaseTab" data-ng-click="sp.viewUploadedknowlwdgebase()"> 
+                <md-content class="md-padding">
+                           <div class="row upload-data-content-over-wrapper">
+                            <div class="col-lg-4 col-md-6 col-sm-6 uploaded-files-wrapper"  ng-repeat="file in sp.uploadContents">
+                                <div class="panel panel-default">
+                                    <div class="panel-body upload-data-content-over">
+                                        <div data-ng-if="file.type == 'image/jpeg' || file.type =='image/png'">
+                                            <div class="upload-data-content-delete" data-ng-click="sp.deletUploadedFile(file._id)">
+                                                <i class="icon-close"></i>
+                                            </div>
+                                            <a href="{{'/uploads/knowledgebase/' + file.fileName}}">
+                                                <div class="test-popup-link upload-data-content-image" style="background:url({{'/uploads/knowledgebase/' + file.fileName}});"></div>
+                                            </a>
+                                        </div>
+                                        <div class="pdf-view" data-ng-if="file.type == 'text/plain' || file.type == 'application/pdf'">
+                                            <!--<div class="upload-data-content-delete" data-ng-click="sp.deletUploadedFile(file._id)">
+                                                <i class="icon-close"></i>
+                                            </div>-->
+                                            <!--<a href="{{'/uploads/knowledgebase/' + file.fileName}}">
+                                                <div class="test-popup-link upload-data-content-image" style="background:url({{'/uploads/knowledgebase/' + file.fileName}});"></div>
+                                            </a>-->
+                                            <div class="upload-data-content-delete" data-ng-click="sp.deletUploadedFile(file._id)">
+                                                <i class="icon-close"></i>
+                                            </div>
+                                            
+                                            <div class="pdf-file" >
+                                                <a id="iframe-popup" data-link="{{'/uploads/knowledgebase/' + file.fileName}}"></a>
+                                            </div>
+                                            <iframe class="" src="{{'/uploads/knowledgebase/' + file.fileName}}" ></iframe>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="!sp.uploadContents.length" class="alert alert-info ng-binding">Sorry, No uploaded Contents to Show.</div>
+                        </div>
+                        </md-content>
+                </md-tab>           
+    </md-content>
+
+</md-content>

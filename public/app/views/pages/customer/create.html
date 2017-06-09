@@ -1,0 +1,164 @@
+<md-content layout-padding>
+    <div class="bg-light lter b-b wrapper-md ng-scope">
+        <h1 class="m-n font-thin h3">Register  your Smart Connection Account (Customer)</h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">Customer</div>
+        <div class="panel-body">
+            <form layout="column" novalidate name="c.customerform" ng-cloak class="md-inline-form" ng-submit="c.customerform.$valid && c.saveCustomer()">
+                <div layout-gt-sm="row">
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>First Name</label>
+                                <input name="firstName" ng-model="c.cData.firstName" required>
+                                <div ng-messages="c.customerform.firstName.$error">
+                                    <div ng-message="required">First name is required!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Last Name</label>
+                                <input name="lastName" ng-model="c.cData.lastName" required>
+                                <div ng-messages="c.customerform.lastName.$error">
+                                    <div ng-message="required">Last name is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>User Name (Email Address)</label>
+                                <input name="userName" type="email" ng-model="c.cData.userName" ng-blur="validateUsernameExistance(c.customerform.userName)" ng-keyup="removeWarning()" autocomplete="off" required>
+                                <div ng-messages="c.customerform.userName.$error">
+                                    <div ng-message-exp="[ 'email', 'required' ]">User name should be an email address</div>
+                                    <div class="username-exist-warning">
+                                        {{usernameExistWarning}}
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Password</label>
+                                <input name="password" type="password" ng-model="c.cData.password" autocomplete="off" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" required minlength="8">
+                                <div class="password-validation-message">
+
+                                    <div ng-show="c.customerform.password.$error.minlength">Password must be of length 8!</div>
+                                    <div ng-show="c.customerform.password.$error.pattern">Password should be alphanumeric with a special character!</div>
+
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Confirm Password</label>
+                                <input name="confirmPassword" type="password" ng-model="c.cData.confirmPassword" required minlength="8">
+                                <div  class="password-validation-message">
+                                    <!--<div ng-message="required">Retype the password to confirm</div>-->
+                                    <!--<div ng-message="md-minlength">Minimum required length of password is 8!</div>--><!-- 
+                                    <div ng-message-exp="[ 'minlength','required'] ">Password must be of length 8!</div> -->
+                                    <div class="md-input-message-animation ng-scope" ng-show="c.customerform.password.$viewValue != c.customerform.confirmPassword.$viewValue">Mismatch</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <label layout="column">Gender</label>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-radio-group name="gender" ng-model="c.cData.gender" required="true">
+                                    <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
+                                    <md-radio-button value="Female"> Female </md-radio-button>
+                                </md-radio-group>
+                                <div ng-messages="c.customerform.gender.$error">
+                                    <div ng-message="required">Please select your gender</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Area Code</label>
+                                <input name="areaCode" type="text" ng-model="c.cData.areaCode" required>
+                                <div ng-messages="c.customerform.areaCode.$error">
+                                    <div ng-message="required">Area code is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Mobile Phone</label>
+                                <input name="mobilePhone" type="number" ng-model="c.cData.mobilePhone" required>
+                                <div ng-messages="c.customerform.mobilePhone.$error">
+                                    <div ng-message="required">Mobile phone is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Email Address</label>
+                                <input name="email" type="email" ng-model="c.cData.email" required>
+                                <div ng-messages="c.customerform.email.$error">
+                                    <div ng-message-exp="[ 'email', 'required' ]">User name should be an email address</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Country</label>
+                                <md-select name="country" ng-model="c.cData.country" required="true">
+                                    <md-option ng-repeat="country in c.countries" value="{{country}}">{{country}}</md-option>
+                                </md-select>
+                                <div ng-messages="c.customerform.country.$error">
+                                    <div ng-message="required">Country is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Zip Code</label>
+                                <input name="zipCode" type="text" ng-model="c.cData.zipCode" required>
+                                <div ng-messages="c.customerform.zipCode.$error">
+                                    <div ng-message="required">Zip code is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <div class="upload-profile-pic-container">
+                                    <div class="upload-profile-pic">
+                                        <img ng-show="c.profilePicUrl" ng-src="uploads/profilepics/{{c.profilePicUrl}}" alt="c.profilePicUrl">
+                                        <img ng-show="!c.profilePicUrl" ng-src="assets/img/default.jpg" alt="c.profilePicUrl">
+                                        <div ng-show="c.uploadProcess">
+                                            <ul class="loading">
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="profile-pic-button">
+                                        <md-button type="submit" ngf-drop ngf-select ng-model="c.cData.profilePic" ngf-multiple="false" ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'" class="md-raised md-primary" ng-change="c.uploadProfilePicture()">Set Profile Picture</md-button>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <div class="bottom_aligner"></div>
+                                <md-checkbox name="termsAndConditions" ng-model="c.cData.termsAndConditions"  ng-click="c.showTermsAndConditionsPopup()" aria-label="Terms and Conditions" required="true">
+                                    <a href="#"> Terms and Conditions </a>
+                                </md-checkbox>
+                                <div ng-messages="c.customerform.termsAndConditions.$error">
+                                    <div ng-message="required">Please check the terms and condition before sign in</div>
+                                </div>
+                                <md-button type="submit" class="md-raised md-primary" ng-if="c.type == 'create'">Register</md-button>
+                                <md-button class="md-raised md-warn" ng-click="c.cancel()">Cancel</md-button>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--    </div> -->
+    <div class="row show-hide-message" ng-show="c.message">
+        <div class="col-sm-6 col-sm-offset-2">
+            <div class="alert alert-info">
+                {{ c.message }}
+            </div>
+        </div>
+    </div>
+</md-content>

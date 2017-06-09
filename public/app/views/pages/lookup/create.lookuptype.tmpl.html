@@ -1,0 +1,42 @@
+<md-dialog aria-label="Create lookup value" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>Create lookup type</h3>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form name="lookupTypeForm" ng-submit="lookupTypeForm.$valid && savelookupType()" novalidate>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Lookup type</label>
+                    <input name="lookupType" ng-model="lookupTypeData.type" required>
+                     <div ng-messages="lookupTypeForm.lookupType.$error">
+                            <div ng-message="required">Lookup type is required</div>
+                        </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-switch ng-model="lookupTypeData.hasSubCategory" aria-label="Enabled" class="md-warn">
+                        Is subcategory
+                    </md-switch>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm ng-if="lookupTypeData.hasSubCategory">
+                    <label>Parent Lookup Type</label>
+                    <md-select name="type" ng-model="lookupTypeData.parentLookupType">
+                        <md-option ng-repeat="lookupType in lookupTypeData.parentLookupType" value="{{lookupType}}">{{lookupType.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <div layout="row" class="alert alert-danger" ng-if="error">
+                    <span>{{message}}</span>
+                </div>
+                <div layout="row" layout-align="center start">
+                    <md-button type="submit" class="md-raised md-primary" flex="30">Create</md-button>
+                    <md-button class="md-raised md-warn" flex="30" ng-click="cancel()">Cancel</md-button>
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>

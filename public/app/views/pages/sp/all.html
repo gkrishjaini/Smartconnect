@@ -1,0 +1,12 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h1 class="m-n font-thin h3">Service Providers</h1>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Service Providers...</p>
+</div>
+<div class="wrapper-md ng-scope">
+    <div class="panel panel-default">
+        <div ui-grid="sp.serviceProviders" class="ui-grid grid " ui-grid-pagination> </div>
+    </div>
+</div>

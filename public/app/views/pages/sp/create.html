@@ -1,0 +1,162 @@
+<md-content layout-padding>
+    <div class="bg-light lter b-b wrapper-md ng-scope">
+        <h1 class="m-n font-thin h3" ng-if="sp.type == 'create'">Register  your Smart Connection Account (Service Provider)</h1>
+        <h1 class="m-n font-thin h3" ng-if="sp.type == 'edit'">Edit Service Provider</h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">Service provider details</div>
+        <div class="panel-body">
+            <form name="sp.spForm" novalidate class="form-horizontal" ng-submit="sp.spForm.$valid && sp.saveServiceProvider()">
+                <div layout-gt-sm="row">
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>First Name</label>
+                                <input name="firstName" ng-model="sp.spData.firstName" required>
+                                <div ng-messages="sp.spForm.firstName.$error">
+                                    <div ng-message="required">First name is required!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Last Name</label>
+                                <input name="lastName" ng-model="sp.spData.lastName" required>
+                                <div ng-messages="sp.spForm.lastName.$error">
+                                    <div ng-message="required">Last name is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Company Name</label>
+                                <input name="companyName" ng-model="sp.spData.companyName" required>
+                                <div ng-messages="sp.spForm.companyName.$error">
+                                    <div ng-message="required">Company name is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>User Name</label>
+                                <input name="userName" type="email" ng-model="sp.spData.userName" ng-keyup="validateUsernameExistance(sp.spForm.userName)" required>
+                                <!-- <div ng-messages="sp.spForm.userName.$error">
+                                    <div ng-message="required">User name is required!</div>
+                                </div> -->
+                                <div ng-messages="sp.spForm.userName.$error">
+                                    <div ng-message-exp="[ 'email', 'required' ]">User name should be an email address</div>
+                                    <div class="username-exist-warning">
+                                        {{usernameExistWarning}}
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Password</label>
+                                <input name="password" ng-minlength="8" type="password" ng-model="sp.spData.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" required>
+                                <div class="password-validation-message">
+                                    <div ng-show="sp.spForm.password.$error.minlength">Password must be of length 8!</div>
+                                    <div ng-show="sp.spForm.password.$error.pattern">Password should be alphanumeric with a special character!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Confirm Password</label>
+                                <input name="confirmPasword" minlength="8" type="password" ng-model="sp.spData.confirmPasword" required>
+                                <div ng-messages="sp.spForm.confirmPasword.$error">
+                                    <div ng-message-exp="[ 'minlength','required'] ">Password must be of length 8!</div>
+                                </div>
+                                <div class="md-input-message-animation ng-scope" ng-show="sp.spForm.password.$viewValue != sp.spForm.confirmPasword.$viewValue">Mismatch</div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Area Code</label>
+                                <input name="areaCode" ng-model="sp.spData.areaCode" required>
+                                <div ng-messages="sp.spForm.areaCode.$error">
+                                    <div ng-message="required">Area code is required!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Mobile Phone</label>
+                                <input name="mobilePhone" type="number" ng-model="sp.spData.mobilePhone" required>
+                                <div ng-messages="sp.spForm.mobilePhone.$error">
+                                    <div ng-message="required">Mobile phone is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Communication Email Address</label>
+                                <input type="email" name="email" ng-model="sp.spData.email" required>
+                                <div ng-messages="sp.spForm.email.$error">
+                                    <div ng-message-exp="[ 'email','required' ]">Email Not Valid</div>
+                                    <!--<div ng-message-exp="[  ]">Email is required!</div>-->
+                                    <!--<div ng-message="required">Email is required!</div>-->
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Country</label>
+                                <md-select name="country" ng-model="sp.spData.country" required="true">
+                                    <md-option ng-repeat="country in sp.countries" value="{{country}}">{{country}}</md-option>
+                                </md-select>
+                                <div ng-messages="sp.spForm.country.$error">
+                                    <div ng-message="required">Country is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Zip Code</label>
+                                <input name="zipCode" type="text" ng-model="sp.spData.zipCode" required>
+                                <div ng-messages="sp.spForm.zipCode.$error">
+                                    <div ng-message="required">Zip code is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <div class="upload-profile-pic-container">
+                                    <div class="upload-profile-pic">
+                                        <img ng-show="sp.profilePicUrl" ng-src="uploads/profilepics/{{sp.profilePicUrl}}" alt="sp.profilePicUrl">
+                                        <img ng-show="!sp.profilePicUrl" ng-src="assets/img/default.jpg" alt="sp.profilePicUrl">
+                                        <div ng-show="sp.uploadProcess">
+                                            <ul class="loading">
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="profile-pic-button">
+                                        <md-button type="submit" ngf-drop ngf-select ng-model="sp.spData.profilePic" ngf-multiple="false" ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'" class="md-raised md-primary" ng-change="sp.uploadProfilePicture()">Set Profile Picture</md-button>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <div class="bottom_aligner"></div>
+                                <md-checkbox name="termsAndConditions" ng-model="sp.spData.termsAndConditions" aria-label="Terms and Conditions" required="true" ng-click="sp.showTermsAndConditionsPopup()">
+                                    <a href="#"> Terms and Conditions </a>
+                                </md-checkbox>
+                                <div ng-messages="customerform.termsAndConditions.$error">
+                                    <div ng-message="required">Please check the terms and condition before sign in</div>
+                                </div>
+                                <md-button type="submit" class="md-raised md-primary" ng-if="sp.type == 'create'">Register</md-button>
+                                <md-button class="md-raised md-warn" ng-click="sp.cancel()">Cancel</md-button>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row show-hide-message" ng-show="sp.message">
+        <div class="col-sm-6 col-sm-offset-2">
+            <div class="alert alert-info">
+                {{ sp.message }}
+            </div>
+        </div>
+    </div>
+</md-content>

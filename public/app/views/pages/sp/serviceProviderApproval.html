@@ -1,0 +1,16 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h1 class="m-n font-thin h3">{{sp.message}}<span ng-if="!sp.message">Approve Service Provider</span></h1>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Service Providers...</p>
+</div>
+<md-content layout-padding  ng-if="!sp.message">
+    <div layout-gt-sm="row">
+    </div>
+    <div class="wrapper-md ng-scope">
+        <div class="panel panel-default serviceprovider-approve">
+            <div ui-grid="sp.serviceProviders"  class="ui-grid grid "  ui-grid-pagination  > </div>
+        </div>
+    </div>
+</md-content>

@@ -1,0 +1,49 @@
+<!--<div class="page-header">
+    <h1>
+ Customers
+ <a href="/customer/create" class="btn btn-default">
+ <span class="glyphicon glyphicon-plus"></span>
+New Customer
+ </a>
+ </h1>
+
+</div> -->
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h1 class="m-n font-thin h3">Customers</h1>
+</div>
+<div class="jumbotron text-center" ng-show="c.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Customer...</p>
+</div>
+<div class="wrapper-md ng-scope">
+    <div class="panel panel-default">
+        <table class="table table-bordered table-striped" ng-show="c.customers">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Zip Code</th>
+                    <!--    <th class="col-sm-2"></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="customer in c.customers">
+                    <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+                    <td>{{ customer.userName }}</td>
+                    <td>{{ customer.gender }}</td>
+                    <td>{{ customer.areaCode }} {{ customer.mobilePhone }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.country }}</td>
+                    <td>{{ customer.zipCode }}</td>
+                    <!--    <td class="col-sm-2">
+                        <a ng-href="/customer/{{ customer._id }}" class="btn btn-danger">Edit</a>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<md-dialog aria-label="Send Email" ng-cloak style="width: 40%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>Send Email</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form name="sendEmailForm" ng-submit="sendEmailForm.$valid && sendEmail()" novalidate>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Email</label>
+                    <input name="email" value="asdasdsa" ng-model="email" disabled required>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Message</label>
+                    <textarea name="message" ng-model="message" required max-rows="150"></textarea>
+                     <div ng-messages="sendEmailForm.message.$error">
+                        <div ng-message="required">Email body is required!</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container>
+                    <p data-ng-bind="responseMessage"></p>
+                </md-input-container>
+                <div layout="row" layout-align="center start">
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="disableForm" flex="30">Send</md-button>
+                    <md-button class="md-raised md-warn" flex="30" ng-click="cancel()">Cancel</md-button>
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,190 @@
+<md-content layout-padding>
+
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">Employee</div>
+        <div class="panel-body">
+            <form name="e.employeeForm" layout="column" novalidate ng-cloak class="md-inline-form" ng-submit="e.employeeForm.$valid && e.saveEmployee()">
+                <div layout-gt-sm="row">
+                    <h3>{{ main.user.name }}</h3>
+                </div>
+                <div layout-gt-sm="row">
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>First Name</label>
+                                <input name="firstName" type="text" ng-model="e.eData.firstName" autocomplete="off" tabindex="1" required>
+                                <div ng-messages="e.employeeForm.firstName.$error">
+                                    <div ng-message="required">First name is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>User Name (Email Address)</label>
+                                <input name="userName" type="email" ng-model="e.eData.userName" ng-model="sp.spData.userName" ng-blur="validateUsernameExistance(e.employeeForm.userName)" ng-keyup="removeWarning()"  autocomplete="off"  tabindex="3" required>
+                                <div ng-messages="e.employeeForm.userName.$error">
+                                    <div ng-message-exp="[ 'email', 'required' ]">User name should be an email address</div>
+                                    <div class="username-exist-warning">
+                                        {{usernameExistWarning}}
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Password</label>
+                                <input name="password" type="password" ng-model="e.eData.password" autocomplete="off" required ng-if="e.type === 'create'" minlength="8"  tabindex="5" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                                <input name="password" type="password" ng-model="e.eData.password" autocomplete="off" ng-if="e.type === 'edit'" minlength="8"  tabindex="5" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+
+                                 <!-- <div ng-messages="e.employeeForm.password.$error">
+                                      <div ng-message-exp="[ 'minlength','required'] ">Password must be of length 8!</div>
+                                </div> -->
+
+                                <div class="password-validation-message">
+                                    <div ng-show="e.employeeForm.password.$error.minlength" aria-hidden="false" class="">Password must be of length 8!</div>
+                                    <div ng-show="e.employeeForm.password.$error.pattern" aria-hidden="false" class="">Password should be alphanumeric with a special character!</div>
+
+                                </div>
+
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Confirm Password</label>
+                                <input name="confirmPassword" type="password" ng-model="e.eData.confirmPassword" autocomplete="off" required ng-if="e.type === 'create'" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" minlength="8" tabindex="6"> 
+                                <input name="confirmPassword" type="password" ng-model="e.eData.confirmPassword" autocomplete="off" ng-if="e.type === 'edit'" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" minlength="8" tabindex="6">                         
+                                <!-- <div ng-messages="e.employeeForm.confirmPassword.$error">
+                                      <div ng-message-exp="[ 'minlength','required'] ">Password must be of length 8!</div>
+                                </div> -->
+                                <div class="password-validation-message">
+                                    <div ng-show="e.employeeForm.confirmPassword.$error.minlength" aria-hidden="false" class="">Password must be of length 8!</div>
+                                    <div ng-show="e.employeeForm.confirmPassword.$error.pattern" aria-hidden="false" class="">Password should be alphanumeric with a special character!</div>
+                                    <div ng-show="e.eData.confirmPassword != e.eData.password" aria-hidden="false" class="">Passwords Not matching</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-content class="md-block" flex-gt-sm>
+                                <label>Effective From Date</label>
+                                <md-datepicker name="effectiveFrom" ng-model="e.eData.effectiveFrom" md-placeholder="Effective From Date" required></md-datepicker>
+                                <div class="validation-messages" ng-messages="e.employeeForm.effectiveFrom.$error">
+                                    <div ng-message="required">Effective from-date is required!</div>
+                                </div>
+                            </md-content>
+                            <md-content class="md-block" flex-gt-sm>
+                                <label>Effective To Date</label>
+                                <md-datepicker name="effectiveTo" ng-model="e.eData.effectiveTo" md-placeholder="Effective To Date" required></md-datepicker>
+                                <div class="validation-messages" ng-messages="e.employeeForm.effectiveTo.$error">
+                                    <div ng-message="required">Effective to-date is required!</div>
+                                </div>
+                            </md-content>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Designation</label>
+                                <input name="designation" type="text" ng-model="e.eData.designation" autocomplete="off" required>
+                                <div ng-messages="e.employeeForm.designation.$error">
+                                    <div ng-message="required">Designation is required!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Status</label>
+                                <md-select name="status" ng-model="e.eData.status" required>
+                                    <md-option ng-repeat="status in e.status" value="{{status}}">{{status}}</md-option>
+                                </md-select>
+                                <div ng-messages="e.employeeForm.status.$error">
+                                    <div ng-message="required">Status is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Last Name</label>
+                                <input name="lastName" type="text" ng-model="e.eData.lastName" autocomplete="off"  tabindex="2" required>
+                                <div ng-messages="e.employeeForm.lastName.$error">
+                                    <div ng-message="required">Last name is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Description</label>
+                                <textarea name="description" ng-model="e.eData.description" row="5" autocomplete="off" required md-select-on-focus  tabindex="4"/>
+
+                                <div ng-messages="e.employeeForm.description.$error">
+                                    <div ng-message="required">Description is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Role</label>
+                                <md-select name="role" ng-model="e.eData.role" required tabindex="7">
+                                    <md-option ng-repeat="role in e.roles" value="{{role}}">{{role}}</md-option>
+                                </md-select>
+                                <div ng-messages="e.employeeForm.status.$error">
+                                    <div ng-message="required">Status is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-checkbox name="renderSerivce" ng-model="e.eData.renderService" aria-label="Render Service">
+                                    Render Service
+                                </md-checkbox>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-checkbox name="superUser" ng-model="e.eData.superUser" aria-label="Super User">
+                                    Super User
+                                </md-checkbox>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Start time</label>
+                                <input name="startTime" type="text" ng-model="e.eData.startTime" autocomplete="off" required ng-pattern="/^[0-9]{1,2}\s?:\s?[0-9]{2}$/">
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="e.employeeForm.startTime.$error">
+                                    <div ng-message="required">Working hours is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>End time</label>
+                                <input name="endTime" type="text" ng-model="e.eData.endTime" autocomplete="off" required ng-pattern="/^[0-9]{1,2}\s?:\s?[0-9]{2}$/">
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="e.employeeForm.endTime.$error">
+                                    <div ng-message="required">Working hours is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Break Time</label>
+                                <input name="breakTime" type="text" ng-model="e.eData.breakTime" autocomplete="off" required ng-pattern="/^[0-9]{1,2}\s?:\s?[0-9]{2}$/">
+                                <div class="hint">## : ##</div>
+                                <div ng-messages="e.employeeForm.breakTime.$error">
+                                    <div ng-message="required">Break time is required!</div>
+                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="center start">
+                            <md-button type="submit" class="md-raised md-primary" flex="30" ng-if="e.type === 'create'">Create</md-button>
+                            <md-button type="submit" class="md-raised md-primary" flex="30" ng-if="e.type === 'edit'">Update</md-button>
+                            <md-button class="md-raised md-warn" flex="30" ng-click="e.cancel()">Cancel</md-button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row show-hide-message" ng-show="e.message">
+        <div class="col-sm-6 col-sm-offset-2">
+            <div class="alert alert-info">
+                {{ e.message }}
+            </div>
+
+        </div>
+    </div>
+</md-content>

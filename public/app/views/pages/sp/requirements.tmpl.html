@@ -1,0 +1,55 @@
+<md-dialog flex="50" aria-label="Requirements" ng-cloak style="margin-top: 86px;
+    max-height: 90%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>Service provider Requirements</span></h3>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelTermsDialog()">
+                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm style="margin-top: 9px;text-align: right;">
+                    <button type="button" class="btn m-b-xs btn-sm btn-primary btn-addon m-xs" ng-click="addRequirement()"><i class="fa fa-plus"></i>Add another Requirement</button>
+                </md-input-container>
+            </div>
+            <form name="requirementform" layout="column" novalidate ng-cloak class="md-inline-form" ng-submit="requirementform.$valid  && requirementsSubmit(); cancelTermsDialog()">
+                <div class="col-sm-11">
+                    <div class="form-group">
+                        <label class="col-sm-3">Requirement 1</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" name="requirement1" ng-model="questions[0]" rows="6" placeholder="Type your Requirement" required></textarea>
+                        </div>
+                        <div ng-messages="requirementform.requirement1.$error">
+                            <div ng-message="required">Requirement 1 is required!</div>
+                        </div>
+                    </div>
+                    <div id="requirement" ng-repeat="index in indexValues" style="margin-top: 30px;position: relative;display: block;float: left;width: 100%;">
+                        <div class="form-group ">
+                            <label class="col-sm-3">Requirement {{index}}</label>
+                            <div class="col-sm-6">
+                                <textarea ng-model="questions[index-1]" class="form-control " rows="6" placeholder="Type your Requirement" required></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox " style: "float:right !important;">
+                                    <label class="i-checks">
+                                        <input type="checkbox" value="" ng-model="required[index-1]"><i></i>Mandatory</label>
+                                    <br/>
+                                    </br/>
+                                    <button type="button" class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="removeRequirement(index)"><i class="fa fa-trash-o"></i>Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div layout="row" layout-align="center start" style="margin-top: 30px">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="requirementform.$invalid">Submit</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</md-dialog>

@@ -1,0 +1,72 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h1 class="m-n font-thin h3">Lookups</h1>
+        </div>
+        <div class="col-md-4 col-md-4">
+        </div>
+        <div class="col-md-4 col-sm-4" style="text-align: right;">
+            <form>
+                <input class="top-search-box" placeholder="Lookup Types" ng-keyup="l.getLookUpList()" ng-model="l.lookUpSearchBox">
+                <input type="submit" class="btn btn-info" ng-click="l.searchLookUp()" value="Search">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wrapper-md ng-scope text-center" style="padding-bottom: 0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <md-button class="md-raised md-primary" ng-click="l.showCreateLookupValuePopup($event)">Add Lookup Value</md-button>
+        </div>
+    </div>
+</div>
+<div class="wrapper-md ng-scope">
+    <div class="panel panel-default">
+        <div ui-grid="l.DisplaylookupValue" class="ui-grid grid " ui-grid-pagination> </div>
+    </div>
+</div>
+<md-content layout-padding>
+    <div layout-gt-sm="row">
+        <h3>{{main.name}}</h3>
+    </div>
+    <!--    <md-input-container class="md-block" flex-gt-sm>
+        <label>Look up type</label>
+        <md-select name="type" ng-model="l.selectedType" required="true">
+            <md-option ng-repeat="lookupType in l.lookupTypes" value="{{lookupType.name}}">{{lookupType.name}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm ng-if="l.selectedType.hasSubcategory">
+    </md-input-container> -->
+    <div layout="row" layout-align="center start">
+    </div>
+    <!--
+    <div class="wrapper-md ng-scope">
+        <div class="panel panel-default">
+            <table class="table table-bordered table-striped" ng-if="l.lookupValues">
+                <thead>
+                    <tr>
+                        <th>Lookup Value</th>
+                        <th>Lookup Type</th>
+                        <th>Description</th>
+                        <th>Enabled(Y/N)</th>
+                        <th>Effective From</th>
+                        <th>Effective To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lookupValue in l.lookupValues">
+                        <td>{{ lookupValue.value }}</td>
+                        <td>{{ lookupValue.type }}</td>
+                        <td>{{ lookupValue.description }}</td>
+                        <td>{{ lookupValue.isEnabled?'Y':'N' }}</td>
+                        <td>{{ lookupValue.effectiveFrom | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ lookupValue.effectiveTo | date:'dd/MM/yyyy' }}</td>
+                        <td>
+                              <a ng-click="l.showConfirm( lookupValue._id)" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>-->
+</md-content>

@@ -1,0 +1,64 @@
+<div class="container w-xxl w-auto-xs">
+
+
+    <h3>Login</h3>
+    <div class="m-b-lg">
+        <div class="wrapper text-center">
+            <strong>Sign in to smart connect</strong>
+        </div>
+
+        <form class="form-validation" ng-submit="login.doLogin()" novalidate name="loginForm">
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <input type="text" placeholder="Username" class="form-control no-border" ng-model="login.loginData.userName" required="">
+                </div>
+            </div>
+            <div class="list-group listextt-group-sm">
+                <div class="list-group-item">
+                    <input type="password" placeholder="Password" class="form-control no-border" ng-model="login.loginData.password" required="">
+                </div>
+            </div>
+            <!-- USERNAME INPUT
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" ng-model="login.loginData.userName" required>
+                </div> -->
+
+            <!-- PASSWORD INPUT
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" ng-model="login.loginData.password" required>
+                </div>-->
+
+            <div class="alert alert-danger" ng-if="login.error">
+                {{ login.error }}
+            </div>
+
+            <!-- LOGIN BUTTON -->
+            <button type="submit" class="btn btn-block btn-primary" ng-disabled="loginForm.$invalid">
+                <span ng-if="!login.processing">Login</span>
+                <span ng-if="login.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+            </button>            
+                    <a type="button" class="btn btn-block btn-primary" href="customer/create"> Customer Registration</a>                       
+
+                    <a type="button" class="btn btn-block btn-primary" href="serviceprovider/create">Service Provider Registration</a>                                  
+            <div layout-gt-sm="row" >
+                 <!--<md-input-container class="md-block" flex-gt-sm>
+                    <a type="button" class="btn btn-block btn-primary" href="#">Forgot Username</a>                       
+                 </md-input-container>-->
+                 <md-input-container class="md-block" flex-gt-sm>
+                    <a type="button" class="btn btn-block btn-primary" href="/forgotpassword">Forgot Password</a>                        
+                 </md-input-container>
+            </div>
+
+        </form>
+        <!--<div layout="row" layout-align="center start">
+          <a href="customer/create"> Customer Registration </a>
+          <a style="margin-left:10px" href="serviceprovider/create"> Service provider Registration </a>
+        </div>-->
+        <!--<div layout="row" layout-align="center start">
+          <a  href="#"> Forgot Username  </a> / 
+          <a  href="/forgotpassword">Forgot password </a>
+        </div>-->
+    </div>
+</div>

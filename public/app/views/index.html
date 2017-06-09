@@ -1,0 +1,502 @@
+<!doctype html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Service Provider</title>
+    
+    <base href="/">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.2.4/css/simple-line-icons.min.css" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/landing.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/ui-grid.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/toaster.min.css">
+    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular-sanitize.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+
+    <script src="assets/js/ui-grid.min.js"></script>
+    <script src="assets/js/toaster.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/timezones.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls-2.2.0.min.js"></script>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js'></script>
+
+    
+
+    <script src="app/controllers/mainController.js"></script>
+    <script src="app/controllers/serviceProviderController.js"></script>
+    <script src="app/controllers/customerController.js"></script>
+    <script src="app/controllers/employeeController.js"></script>
+    <script src="app/controllers/lookupController.js"></script>
+
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/serviceProviderService.js"></script>
+    <script src="app/services/customerService.js"></script>
+    <script src="app/services/employeeService.js"></script>
+    <script src="app/services/lookupService.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/app.routes.js"></script>
+</head>
+
+<body ng-app="smartConnectionApp" ng-controller="mainController as main" ng-cloak>
+    <div class="app app-header-fixed ">
+
+        <!-- header -->
+        <header id="header" class="app-header navbar" role="menu" ng-if="main.loggedIn">
+            <!-- navbar header -->
+            <div class="navbar-header bg-dark">
+                <button class="pull-right visible-xs dk" ui-toggle-class="show" target=".navbar-collapse">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </button>
+                <button class="pull-right visible-xs" ui-toggle-class="off-screen" target=".app-aside" ui-scroll="app">
+                    <i class="glyphicon glyphicon-align-justify"></i>
+                </button>
+                <!-- brand -->
+                <a href="#/" class="navbar-brand text-lt">
+                    <i class="fa fa-btc"></i>
+                    <img src="img/logo.png" alt="." class="hide">
+                    <span class="hidden-folded m-l-xs">Smart Connections</span>
+                </a>
+                <!-- / brand -->
+            </div>
+            <!-- / navbar header -->
+            <!-- navbar collapse -->
+            <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
+                <!-- buttons -->
+                <div class="nav navbar-nav hidden-xs">
+                    <a href="#" class="btn no-shadow navbar-btn" ui-toggle-class="app-aside-folded" target=".app">
+                        <i class="fa fa-dedent fa-fw text"></i>
+                        <i class="fa fa-indent fa-fw text-active"></i>
+                    </a>
+                    <a href="#" class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
+                        <i class="icon-user fa-fw"></i>
+                    </a>
+                </div>
+                <!-- / buttons -->
+                <!-- link and dropdown -->
+                <!-- / link and dropdown -->
+                <!-- search form -->
+                <!-- <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" data-target=".navbar-collapse" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="Search projects...">
+                            <span class="input-group-btn">
+                              <button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
+                          </span>
+                        </div>
+                    </div>
+                </form> -->
+                <!-- / search form -->
+                <!-- nabar right -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!--<li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <i class="icon-bell fa-fw"></i>
+                            <span class="visible-xs-inline">Notifications</span>
+                            <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
+                        </a>
+                        <!-- dropdown -->
+                        <!--<div class="dropdown-menu w-xl animated fadeInUp">
+                            <div class="panel bg-white">
+                                <div class="panel-heading b-light bg-light">
+                                    <strong>You have <span>2</span> notifications</strong>
+                                </div>
+                                <div class="list-group">
+                                    <a href class="list-group-item">
+                                        <span class="pull-left m-r thumb-sm">
+                                          <img src="{{main.user.profileImgUrl}}" alt="..." class="img-circle">
+                                      </span>
+                                        <span class="clear block m-b-none">
+                                          Use awesome animate.css<br>
+                                          <small class="text-muted">10 minutes ago</small>
+                                      </span>
+                                    </a>
+                                    <a href class="list-group-item">
+                                        <span class="clear block m-b-none">
+                                          1.0 initial released<br>
+                                          <small class="text-muted">1 hour ago</small>
+                                      </span>
+                                    </a>
+                                </div>
+                                <div class="panel-footer text-sm">
+                                    <a href class="pull-right"><i class="fa fa-cog"></i></a>
+                                    <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </li>-->
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
+                            <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                              <img src="{{main.user.profileImgUrl}}" alt="...">
+                              <i class="on md b-white bottom"></i>
+                          </span>
+                            <span class="hidden-sm hidden-md">{{ main.user.name }}</span> <b class="caret"></b>
+                        </a>
+                        <!-- dropdown -->
+                        <ul class="dropdown-menu animated fadeInRight w">
+                            <!-- <li>
+                                <a href>
+                                    <span>Settings</span>
+                                </a>
+                            </li> -->
+                            <li ng-if="main.user.type != 'Employees' && !main.user.corporateLogin">
+                                <a href="{{main.profileUrl}}">Profile</a>
+                            </li>
+                            <li ng-if="!main.user.corporateLogin" class="divider"></li>
+                            <li>
+                                <a href="#" ng-click="main.doLogout()">Logout</a>
+                            </li>
+                        </ul>
+                        <!-- / dropdown -->
+                    </li>
+                </ul>
+                <!-- / navbar right -->
+            </div>
+            <!-- / navbar collapse -->
+        </header>
+        <!-- / header -->
+        <!-- aside -->
+        <aside id="aside" class="app-aside hidden-xs bg-dark" ng-if="main.loggedIn">
+            <div class="aside-wrap">
+                <div class="navi-wrap">
+                    <!-- user -->
+                    <div class="clearfix hidden-xs text-center hide" id="aside-user">
+                        <div class="dropdown wrapper">
+                            <a>
+                                <span class="thumb-lg w-auto-folded avatar m-t-sm">
+                                  <img src="{{main.user.profileImgUrl}}" class="img-full" alt="...">
+                              </span>
+                            </a>
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                                <span class="clear">
+                                  <span class="block m-t-sm">
+                                      <strong class="font-bold text-lt">{{ main.user.name }}</strong>
+                                      <b class="caret"></b>
+                                  </span>
+                                
+                                </span>
+                            </a>
+                            <!-- dropdown -->
+                            <ul class="dropdown-menu animated fadeInRight w hidden-folded">
+                                <li>
+                                    <a href="{{main.profileUrl}}">Profile</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#" ng-click="main.doLogout()">Logout</a>
+                                </li>
+                            </ul>
+                            <!-- / dropdown -->
+                        </div>
+                        <div class="line dk hidden-folded"></div>
+                    </div>
+                    <!-- / user -->
+                    <!-- nav -->
+                    <nav ui-nav class="navi clearfix">
+                        <ul class="nav">
+                            <!--<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                                <span>Navigation</span>
+                            </li>--> 
+                            <li ng-if="main.user.type === 'ServiceProviders' && main.user.appointmentOption ==='Regular'">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Employees</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li class="nav-sub-header">
+                                        <a href>
+                                            <span>Employees</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/employee">
+                                            <span>List</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="employee/create">
+                                            <span>Create</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li ng-if="main.user.type === 'ServiceProviders' && main.user.corporateLogin !== true">
+                                <a href class="auto"   ng-if="main.user.appointmentOption != 'Contact'">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Appointments</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li  ng-if="main.user.appointmentOption == 'Regular'">
+                                        <a href="serviceprovider/appointmentDefinition/create">
+                                            <span>Create</span>
+                                        </a>
+                                    </li>
+                                    <li ng-if="main.user.appointmentOption == 'Regular'">
+                                        <a href="serviceprovider/appointmentDefinition">
+                                            <span>Appointments List</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/scheduleAppointment" ng-click="main.reload();">
+                                            <span>Schedule Appointment</span>
+                                        </a>
+                                    </li>
+
+                                    <li ng-if="main.user.appointmentOption == 'Default'">
+                                        <a href="serviceprovider/reviewAppointment">
+                                            <span>Review Appointment</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/appointmentsReport">
+                                            <span>Appointment Report</span>
+                                        </a>
+                                    </li>
+                                    <li ng-if="main.user.appointmentOption == 'Default'">
+                                        <a href="employee/closing">
+                                            <span>Closing</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li ng-if="main.user.type === 'ServiceProviders'">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Lookup</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li class="nav-sub-header">
+                                        <a href>
+                                            <span>Lookup</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="serviceprovider/lookup">
+                                            <span>List</span>
+                                        </a>
+                                    </li>
+                                    <li  ng-if="main.user.corporateLogin">
+                                        <a href="serviceprovider/lookupTypeList"> 
+                                            <span>Lookup Type List</span> 
+                                        </a>
+                                    </li>
+
+                                    <!--    <li>
+                                        <a href="serviceprovider/lookup/create">
+                                            <span>Create</span>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </li>
+
+                            <li ng-if="main.user.type === 'ServiceProviders' && main.user.corporateLogin == true">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Service Providers</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li>
+                                        <a href="serviceprovider/serviceProviderApproval">
+                                            <span>Approve Service Provider</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li ng-if="main.user.type === 'Employees'">
+
+                            </li>
+
+                             <li ng-if="main.user.type === 'Employees'">
+                                
+                                <li ng-if="main.user.type === 'Employees'">
+                                    <a href="appointmentsReport">
+                                        <span>Appointment Report</span>
+                                    </a>
+                                </li>
+                                <li ng-if="main.user.type === 'Employees'">
+                                     <a href="employee/closing">
+                                        <!-- <i class="icon-user icon text-success-lter"></i> -->
+                                        <span>Closing</span>
+                                    </a>
+                                </li>
+                                
+                            </li>
+                            
+                            <li ng-if="main.user.type === 'Admin'">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Service Provider</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li class="nav-sub-header">
+                                        <a href>
+                                            <span>Service Provider</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/serviceprovider">
+                                            <span>List</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="serviceprovider/create">
+                                            <span>Create</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- <li ng-if="main.user.type === 'Customers'">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Appointment</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li>
+                                        <a href="/scheduleAppointment">
+                                            <span>Schedule An Appointment</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li ng-if="main.user.type === 'Admin'">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                                      <i class="fa fa-fw fa-angle-right text"></i>
+                                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                                  </span>
+                                    <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                                    <span class="font-bold">Customer</span>
+                                </a>
+                                <ul class="nav nav-sub dk">
+                                    <li class="nav-sub-header">
+                                        <a href>
+                                            <span>Customer</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/customer">
+                                            <span>List</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="customer/create">
+                                            <span>Create</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="line dk"></li>
+
+                            <!--<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                                <span>Components</span>
+                            </li>-->
+
+                            <!--<li class="line dk hidden-folded"></li>
+
+                            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                                <span>Your Stuff</span>
+                            </li>-->
+                            <li  ng-if="main.user.type != 'Employees' && main.user.corporateLogin !== true">
+                                <a href="{{main.profileUrl}}">
+                                    <i class="icon-user icon text-success-lter"></i>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- nav -->
+                </div>
+            </div>
+        </aside>
+        <!-- / aside -->
+        <!-- content -->
+        <div flex layout="column">
+            <div ui-butterbar></div>
+            <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".md-aside"></a>
+            <div class="md-content" ng-view></div>
+        </div>
+        <toaster-container></toaster-container>
+        <!--  <div id="content" class="app-content" role="main">
+          <div layout="column" flex ng-view>
+
+          </div>
+      </div> -->
+        <!-- /content -->
+        <!-- footer -->
+        <!--    <footer id="footer" class="app-footer" role="footer">
+            <div class="wrapper b-t bg-light">
+                <span class="pull-right">2.2.0 <a href ui-scroll="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span> &copy; 2016 Copyright.
+            </div>
+        </footer> -->
+        <!-- / footer -->
+    </div>
+    <script src="assets/js/ng-file-upload-shim.js"></script>
+    <script src="assets/js/ng-file-upload.js"></script>
+    <script src="assets/js/ui-load.js"></script>
+    <script src="assets/js/ui-jp.config.js"></script>
+    <script src="assets/js/ui-jp.js"></script>
+    <script src="assets/js/ui-nav.js"></script>
+    <script src="assets/js/ui-toggle.js"></script>
+    <script src="assets/js/ui-client.js"></script>
+    <script src="assets/js/underscore-min.js"></script>
+    <script src="assets/js/number-polyfill.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+</body>
+
+</html>

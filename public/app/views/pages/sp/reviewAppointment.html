@@ -1,0 +1,129 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="m-n font-thin h3">Appointments</h1>
+        </div>
+    </div>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Appointments...</p>
+</div>
+<div class="appointment-review">
+    <div class="row" style="margin: 0px;">
+        <!-- List all appointments -->
+        <div class="col-md-3">
+            <ul class="appointments-list scrollable hover">
+                <div class="wrapper-xs b-b">
+                    <div class="input-group m-b-xxs">
+                        <span class="input-group-addon input-sm no-border no-bg"><i class=" icon-magnifier text-md m-t-xxs"></i></span>
+                        <p style="margin-top: 10px;margin-right: 5px;cursor: pointer;" class="ng-binding">Appointments
+                        </p>
+                    </div>
+                </div>
+                <li ng-repeat="item in sp.appointmentList">
+                    <a href="" ng-click="sp.getAppointmentDetails(item)" ng-class="{selectedCust: sp.selectedItem == item}">{{item.customerName}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 app-details-wrapper" style=" min-height: 490px; display: table;">
+            <div class="app-details">
+                <div class="row">
+                    <div class="hbox h-auto m-b-lg" style="display: table; width: 100%; padding-left: 25px;">
+                            <div class="profile-view-img-ame" style="display: table-cell;vertical-align: middle;">
+                                <div class="profile-pic" style="display: inline-block;">
+                                    <div class="thumb-lg avatar inline">
+                                        <img ng-src="{{sp.selectedItem.profilePicUrl}}" ng-show="sp.selectedItem._id">
+                                    </div>
+                                </div>
+                                <div class="profile-name h2  font-thin font-thin" style="margin-left: 30px;display: inline-block;">
+                                    <div>{{sp.selectedItem.firstName}} {{sp.selectedItem.lastName}}</div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        
+
+                        <div class="form-group m-b-sm" ng-hide="!sp.appontmentItem.appointmentName">
+                            <label class="col-sm-5 control-label form-control-static">Appointment</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.appontmentItem.appointmentName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" data-ng-if="sp.user.type=='ServiceProviders'" ng-hide="!sp.appontmentItem.appointmentDate">
+                            <label class="col-sm-5 control-label form-control-static">Appointment Date</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static" ng-bind="sp.appontmentItem.appointmentDate |  date:'MM/dd/yyyy'"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.appontmentItem.appointmentTime">
+                            <label class="col-sm-5 control-label form-control-static">Appointment Time</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.appontmentItem.appointmentTime}}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-b-sm" data-ng-if="sp.user.type=='ServiceProviders'" ng-hide="!sp.appontmentItem.spot">
+                            <label class="col-sm-5 control-label form-control-static">Appointment Type</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.appontmentItem.spot == true ? 'SPOT' : 'Not SPOT' }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.mobilePhone">
+                            <label class="col-sm-5 control-label form-control-static">Mobile</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.selectedItem.mobilePhone}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.userName">
+                            <label class="col-sm-5 control-label form-control-static">Email</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.selectedItem.userName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.areaCode">
+                            <label class="col-sm-5 control-label form-control-static">Area Code</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.selectedItem.areaCode}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.zipCode">
+                            <label class="col-sm-5 control-label form-control-static">Postal Code</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.selectedItem.zipCode}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.country">
+                            <label class="col-sm-5 control-label form-control-static">Country</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{sp.selectedItem.country}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5" ng-show="sp.selectedItem.answers.length">
+                        <div class="form-group m-b-sm" aria-hidden="false">
+                            
+                                <ul style="list-style: decimal-leading-zero; padding-left: 20px;;">
+                                    <li ng-repeat="item in sp.selectedItem.answers">
+                                        <p> <b>{{item.question}}</b> </p>
+                                        <p style="padding-left: 10px; margin-top: -5px;"> {{item.answer}} </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group m-b-sm" ng-hide="!sp.selectedItem.country" style="width: 100%;margin-top: 30px;padding-top: 10px;border-top: 1px solid #dee5e7;text-align: right;">
+                        <button data-ng-if="sp.user.type=='ServiceProviders'" ng-show="sp.selectedItem" type="button" class="btn btn-success" ng-click="sp.appointmentCheckFormAction(true)">Accept</button>
+                        <button data-ng-if="sp.user.type=='ServiceProviders'" ng-show="sp.selectedItem" type="button" class="btn btn-danger" ng-click="sp.appointmentCheckFormAction(false)">Reject</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

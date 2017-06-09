@@ -1,0 +1,153 @@
+<style type="text/css" media="screen">
+	html,
+	body {
+	    background: #fff;
+	}
+</style>
+<div class="landing-page">
+    <header class="lp-header">
+        <div layout-gt-sm="row">
+            <div class="col-md-6">
+                <a href="#/" class="navbar-brand text-lt">
+                    <i class="fa fa-btc"></i>
+                    <img src="img/logo.png" alt="." class="hide">
+                    <span class="hidden-folded m-l-xs">Smart Connections</span>
+                </a>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+                <!-- <div class="sp-searh-input" style="display: inline-block;position: relative;">
+                    <div class="sp-searh-input-wrapper">
+                        <input type="text" placeholder="Start yout search" ng-keyup="lp.searchSp()" data-ng-model="lp.searchSpBox" class="lp-search-sp" style="    border: 1px solid #dee5e7;
+     width: initial; 
+    padding: 5px;
+    border-radius: 3px;
+    background: #fff;
+    /* border-radius: 20px; */
+    padding-left: 20px;
+    /* display: inline-block; */
+    margin-top: 13px;
+    /* margin-bottom: -32px; */">
+                        <i class="search-box-icon fa fa-search" style="    margin-left: -28px;"></i>
+                        <ul class="sp-list">
+                            <li class="sp-list-item" ng-repeat="item in lp.spList">{{item.firstName}}</li>
+                        </ul>
+                    </div>
+                </div> -->
+                <nav class="navigation-menu">
+                    <ul>
+                        <li><a href="" title=""><i class="nav-icons fa fa-home"></i>Home - New</a></li>
+                        <li><a href="" title=""><i class="nav-icons fa fa-caret-square-o-up"></i> Sign Up</a></li>
+                        <li><a href="" title=""><i class="nav-icons fa fa-sign-in"></i>Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+    <section class="lp-hero-section" style="background: url('assets/img/hero-bk.jpg');   -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+        <div class="container">
+            <div layout-gt-sm="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h3 class="">Search Service Providers</h3>
+                    </div>
+                    <div class="sp-searh-input">
+                        <div class="sp-searh-input-wrapper">
+                            <input type="text" placeholder="Start yout search" ng-keyup="lp.searchSp()" data-ng-model="lp.searchSpBox" class="lp-search-sp">
+                            <i class="search-box-icon fa fa-search"></i>
+                            <ul class="sp-list">
+                                <li class="sp-list-item" ng-repeat="item in lp.spList">{{item.firstName}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <div class="sp-profile-hero">
+		        		<img src="assets/img/a0.jpg" alt="">
+		        		<div class="sp-name"><h3>First Name Last Name</h3></div>
+		        	</div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /lp-hero-section -->
+    <!--     <section class="lp-categories">
+
+    	<h2 class="lp-category-heading">Categories</h2>
+
+    	<div class="category-wrapper">
+    		<ul class="category-ul">
+
+    			<li class="category-items">
+    				<div class="category-name">Category 1</div>
+    				<div class="category-description">
+    					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\
+    				</div>
+    			</li>
+
+    			<li class="category-items">
+    				<div class="category-name">Category 1</div>
+    				<div class="category-description">
+    					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\
+    				</div>
+    			</li>
+
+    			<li class="category-items">
+    				<div class="category-name">Category 1</div>
+    				<div class="category-description">
+    					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\
+    				</div>
+    			</li>
+    		</ul>
+
+
+
+    	</div>
+
+    </section><!-- /lp-categories -->
+    <section class="lp-categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading lp-category-heading">
+                        <h3 class="">Services</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row category-wrapper">
+                <div class="category-items-wrapper col-md-3 col-sm-3 m-b-30">
+                    <div class="category-items">
+                        <div class="category-icons"><i class="icon-picture"></i></div>
+                        <h4 class="category-name">Development</h4>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, lorem ipsum dolor sit amet, </p>
+                    </div>
+                </div>
+                <div class="category-items-wrapper col-md-3 col-sm-3 m-b-30">
+                    <div class="category-items">
+                        <div class="category-icons"><i class="icon-puzzle"></i></div>
+                        <h4 class="category-name">Testing</h4>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, lorem ipsum dolor sit amet, </p>
+                    </div>
+                </div>
+                <div class="category-items-wrapper col-md-3 col-sm-3 m-b-30">
+                    <div class="category-items">
+                        <div class="category-icons"><i class=" icon-envelope"></i></div>
+                        <h4 class="category-name">Marketing</h4>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, lorem ipsum dolor sit amet, </p>
+                    </div>
+                </div>
+                <div class="category-items-wrapper col-md-3 col-sm-3 m-b-30">
+                    <div class="category-items">
+                        <div class="category-icons"><i class=" icon-heart"></i></div>
+                        <h4 class="category-name">Reality</h4>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, lorem ipsum dolor sit amet, </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="background: #efefef"></section>
+    <footer>
+    </footer>
+</div>

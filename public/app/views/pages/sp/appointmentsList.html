@@ -1,0 +1,18 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <h1 class="m-n font-thin h3">Appointment List</h1>
+        </div>
+        <div class="col-md-6 col-sm-6" style="text-align: right;">
+            <form>
+                <input class="top-search-box" placeholder="Appointment Name" ng-keyup="sp.getAppointmentList()" ng-model="sp.appointmentSearchBox">
+                <input type="submit" class="btn btn-info" ng-click="sp.searchAppointment()" value="Search">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wrapper-md ng-scope">
+    <div class="panel panel-default">
+        <div ui-grid="sp.appointments" class="ui-grid grid " ui-grid-pagination> </div>
+    </div>
+</div>

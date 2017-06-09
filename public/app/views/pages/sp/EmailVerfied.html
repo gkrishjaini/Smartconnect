@@ -1,0 +1,24 @@
+<!--<div>
+    <md-toolbar class="md-success">
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">Email Verification</h2>
+        </div>
+    </md-toolbar>
+    <md-content flex layout-padding >
+        <p><span ng-bind="sp.message"></span> . Please <a href="/">login </a> using your user name and password.</p>
+    </md-content>
+</div>-->
+
+<div>
+    <md-toolbar class="md-success">
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">Email Verification</h2>
+        </div>
+    </md-toolbar>
+    <md-content flex layout-padding >
+        <!-- <p><span ng-bind="sp.message"></span> . Please <a href="/">login </a> using your user name and password.</p> -->
+
+        <p><span ng-bind-html="sp.message"></span></p>
+
+    </md-content>
+</div>

@@ -1,0 +1,92 @@
+<md-dialog flex="50" aria-label="Create lookup value" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3><span ng-if="toEdit!== true">Create lookup value</span><span ng-if="toEdit == true">Edit lookup value</span></h3>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form name="lookupForm" ng-submit="lookupForm.$valid && savelookupType() " novalidate>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-switch ng-model="lookupData.isSubcategory" ng-show="isDisabled" aria-label="Enabled" ng-true-value="'Yes'" ng-false-value="'No'" class="md-warn switch" ng-change="ShowHide()">
+                        Add Child Lookup Value: {{ lookupData.isSubcategory }}
+                    </md-switch>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm >
+                    <label>Parent Lookup type</label>
+                    <md-select name="parenttype" id="parenttype" ng-model="selectedType" ng-change="getChildLookup()" ng-required="true">
+                        <md-option ng-repeat="lookupType in lookupTypes" ng-selected="{{ lookupType.name === selectedValue ? 'true' : 'false' }}" ng-value="{{lookupType}}" >{{lookupType.name}}</md-option>
+                    </md-select>
+                    <div ng-messages="lookupForm.parenttype.$error" ng-show="lookupForm.parenttype.$invalid">
+                            <div ng-message="required">Parent Lookup type is required</div>
+                    </div>
+                </md-input-container>
+                 <md-input-container class="md-block" flex-gt-sm ng-show="isVisible" >
+                    <label>Parent Lookup Value</label>
+                    <md-select name="" id="" ng-model="selectedParentValue" ng-change="" ng-disabled="!editVisible">
+                        <md-option ng-repeat="lookupVal in parentlookupvalue" ng-selected="{{lookupVal.value === parentselectedValue ? 'true' : 'false'}}"  ng-value="{{lookupVal}}" >{{lookupVal.value}}</md-option>
+                    </md-select>
+                    <div ng-messages="lookupForm.parenttype.$error" ng-show="lookupForm.parenttype.$invalid">
+                            <div ng-message="required">Parent Lookup type is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm ng-show="isVisible" >
+                    <label>Child Lookup Type</label>
+                    <md-select name="type" ng-model="childLookupType" >
+                        <md-option ng-repeat="childlookup in childLookupType" ng-selected="{{childlookup.name === childselectedValue ? 'true' : 'false'}}" value="{{childlookup}}">{{childlookup.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <!--<md-input-container class="md-block" flex-gt-sm ng-if="selectedType.hasSubcategory">
+                    <label>Parent Look up type</label>
+                    <input name="lookupValue" ng-model="lookupData.value" >
+                </md-input-container>-->
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Lookup Value</label>
+                    <input name="lookupvalue" ng-model="lookupData.lookupValue" ng-required="true">
+                        <div ng-messages="lookupForm.lookupvalue.$error">
+                            <div ng-message="required">Lookup value is required</div>
+                        </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Description</label>
+                    <input name="description" ng-model="lookupData.description">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-switch ng-model="lookupEnabled" aria-label="Enabled" ng-true-value="'Yes'" ng-false-value="'No'" class="md-warn switch">
+                        Enabled: {{ lookupEnabled }}
+                    </md-switch>
+                </md-input-container>
+                <md-content class="md-block" flex-gt-sm>
+                    <label>From Date</label>
+                    <md-datepicker name="effectiveFrom" ng-model="lookupData.effectiveFrom" md-placeholder="From Date"></md-datepicker>
+                     <label>To Date</label>
+                    <md-datepicker name="effectiveTo" ng-model="lookupData.effectiveTo" md-placeholder="To Date"></md-datepicker>
+                    
+<!--   <div class="validation-messages" ng-messages="employeeForm.effectiveFrom.$error">
+            <div ng-message="required">Effective from date is required!</div>
+        </div> -->
+                </md-content>
+                <!--<md-content class="md-block" flex-gt-sm>
+                    <label>To Date</label>
+                    <md-datepicker name="effectiveTo" ng-model="lookupData.effectiveTo" md-placeholder="To Date"></md-datepicker>-->
+                    <!--   <div class="validation-messages" ng-messages="employeeForm.effectiveFrom.$error">
+            <div ng-message="required">Effective from date is required!</div>
+        </div> -->
+                <!--</md-content>-->
+                <div layout="row" class="alert alert-danger" ng-if="error">
+                    <span>{{message}}</span>
+                </div>
+                <div layout="row" layout-align="center start" class="pull-right" style="margin-bottom:20px">
+                    <md-button type="submit" class="md-raised md-primary" ng-if="toEdit != true" flex="30"  ng-disabled="lookupForm.$invalid">Create</md-button>
+                    <!-- <md-button class="md-raised md-primary" ng-if="l.type == 'edit'">Update</md-button> -->
+                    <md-button type="submit" class="md-raised md-primary" ng-if="toEdit == true" ng-disabled="lookupForm.$invalid">Update</md-button>
+                    <md-button class="md-raised md-warn" flex="30" ng-click="cancel()">Cancel</md-button>
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>

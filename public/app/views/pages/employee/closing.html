@@ -1,0 +1,165 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="m-n font-thin h3">Closing</h1>
+        </div>
+    </div>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Appointments...</p>
+</div>
+
+<md-content layout-padding style="background: none;">
+    
+    <div class="panel panel-default">
+        <md-content>
+            <div class="panel-heading font-bold"></div>
+            <div class="panel-body">
+                <form name="spForm" class="form-horizontal"  enctype="multipart/form-data" ng-submit="e.saveClosing()">
+                    <div layout-gt-sm="row" style="margin-bottom: 30px;">
+                        <div class="col-sm-6" ng-init="checked = spot">
+                            <div class="row">
+                                <!-- <div class="col-md-3">
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" ng-model="checkBox" name="a" checked="checked" value="spot">
+                                            <i></i>Spot
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" ng-model="checkBox" name="a" value="regular">
+                                            <i></i>Regular
+                                        </label>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Regular Appointment</label>
+                                    <md-select name="country" ng-init="regularId = []" ng-change="e.getCustomerDetails(e.closing.regularAppointment, regularId[e.closing.regularAppointment]); e.closing.spotAppointment = ''" ng-model="e.closing.regularAppointment">
+                                        <md-option ng-repeat="regular in e.regularAppointments" value="{{regular._id}}" ng-init="regularId[regular._id] = regular.customerID">{{regular.appointmentTime}} - {{ regular.appRefNo }}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SPOT Appointment</label>
+                                    <md-select name="country" ng-init="spotId = []" ng-change="e.getCustomerDetails(e.closing.spotAppointment, spotId[e.closing.spotAppointment]); e.closing.regularAppointment = ''" ng-model="e.closing.spotAppointment">
+                                        <md-option ng-repeat="spot in e.spotAppointments" value="{{spot._id}}" ng-init="spotId[spot._id] = spot.customerID">{{spot.appointmentTime}} - {{ spot.appRefNo }}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="hbox h-auto m-b-lg" style="display: table; width: 100%; padding-left: 25px;">
+                                <div class="profile-view-img-ame" style="display: table-cell;vertical-align: middle;">
+                                    <div class="profile-pic" style="display: inline-block;float: left;">
+                                        <div class="thumb-lg avatar inline">
+                                            <img ng-src="uploads/profilepics/{{e.serviceProvider.profilePicUrl}}">
+                                        </div>
+                                    </div>
+                                    <div class="profile-name h4  font-thin font-thin" style="margin-left: 120px;">
+                                        {{e.serviceProvider.firstName}} {{e.serviceProvider.lastName}}
+                                    </div>
+                                    <div class="sp-address" style="margin-left: 120px;margin-left: 120px;margin-top: 10px;font-size: 14px;color: #5a5a5a;">
+                                        {{e.serviceProvider.addressLane1}} <br />
+                                        {{e.serviceProvider.addressLane2}}
+                                        {{e.serviceProvider.city}} <br />
+                                        {{e.serviceProvider.state}}<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row wrapper" ng-show="e.customer._id">
+                            <h4 style="margin-left: 15px;padding-bottom: 10px;border-bottom: 1px solid #dee5e7;">Customer Details</h4>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-sm">
+                                <label class="col-sm-12 control-label form-control-static" style="text-align: right !important"> Date: 12/12/2016</label>
+                            </div>
+                            <div class="form-group m-b-sm">
+                                <label class="col-sm-5 control-label form-control-static">Name</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">{{e.customer.firstName}} {{e.customer.lastName}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-sm">
+                                <label class="col-sm-5 control-label form-control-static">Mobile Number</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">{{e.customer.mobilePhone}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-sm">
+                                <label class="col-sm-5 control-label form-control-static">Zip Code</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">{{e.customer.zipCode}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-sm">
+                                <label class="col-sm-5 control-label form-control-static">Email</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">{{e.customer.userName}}</p>
+                                </div>
+                            </div>
+
+                            <div style="width: 100%; min-height: 100px;">
+                                <md-input-container class="md-block " flex-gt-sm>
+                                    <div ngf-drop ngf-select ng-model="e.closingData.files" ng-change="e.attachmentFileChange()" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf,.txt'" ngf-pattern="'image/*,application/pdf,.txt'">Drop Knowledgebase Files here or click here to upload</div>
+                                    <ul>
+                                        <li ng-repeat="f in e.closingData.files track by $index" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
+                                            <i class="icon-close" ng-click="e.deletedLoadedKBFiles(f.name + f.lastModified)" style="cursor: pointer;float: right; margin-right: 10px;"></i>
+                                        </li>
+                                    </ul>
+                                </md-input-container>
+
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-md-6" style="border-left: 1px solid #e1e1e1;">
+                            
+
+                            <div class="form-group m-b-sm">
+                                <div class="col-sm-12" style="margin-top: 30px;">
+                                    <div class="closing-comments-wrapper">
+                                        <!-- <md-input-container class="md-block">
+                                            <label>Closing Comments</label>
+                                            <textarea ng-model="e.closingData.comments" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
+                                        </md-input-container> -->
+
+                                            <div text-angular="text-angular"  ng-model="e.closingData.comments" style="border: 1px solid #e1e1e1;"  ta-toolbar="[['ul']]" name="htmlcontent1" ng-model="ta.htmlcontent1" 
+        ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></div>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group m-b-sm">
+                                <div class="col-sm-12 text-right">
+                                    <ul class="loading" ng-show="e.disable" style="top: 50%;">
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                            </ul>
+                                    <button type="submit" ng-disabled="e.disable" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <button type="button" class="btn btn-info pull-left">Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </md-content>
+    </div>
+    </div>
+</md-content>
+<style type="text/css" media="screen">
+    .control-label {
+        text-align: left !important;
+    }
+</style>

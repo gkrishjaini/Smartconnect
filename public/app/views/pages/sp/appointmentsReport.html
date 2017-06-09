@@ -1,0 +1,43 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h1 class="m-n font-thin h3">Appointment Report</h1>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Appointments...</p>
+</div>
+<md-content layout-padding>
+    <div layout-gt-sm="row">
+    </div>
+    <div layout="row" layout-align="space-around  center">
+
+    	<div class="col-md-4">
+    		<md-content class="md-block" flex-gt-sm>
+    			<md-datepicker ng-model="sp.fromDate" md-placeholder="Appointment From" required></md-datepicker>
+    		</md-content>
+    	</div>
+
+    	<div class="col-md-4">
+    		<md-content class="md-block" flex-gt-sm>
+    			<md-datepicker ng-model="sp.toDate" md-placeholder="Appointment To" required></md-datepicker>
+    		</md-content>
+    	</div>
+		<div class="col-md-1">Appointment Name</div>
+		<div class="col-md-4">
+			<md-content class="md-block" flex-gt-sm >
+				<md-select placeholder="Select Appointment" ng-model="sp.appointment" ng-change="" >
+					<md-option ng-repeat="item in sp.appointments" ng-value="item._id">
+						{{item.appointmentName}}
+					</md-option>
+				</md-select>
+			</md-content>
+		</div>
+    	<div class="col-md-4">
+        	<md-button class="md-raised md-primary"  ng-click="sp.searchAppointments()">Search</md-button>
+    	</div>
+    </div>
+    <div class="wrapper-md ng-scope">
+        <div class="panel panel-default">
+            <div ui-grid="sp.appointmentList" class="ui-grid grid " ui-grid-pagination> </div>
+        </div>
+    </div>
+</md-content>

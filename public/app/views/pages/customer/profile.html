@@ -1,0 +1,174 @@
+<md-content layout-padding>
+    <div class="bg-light lter b-b wrapper-md ng-scope">
+        <h1 class="m-n font-thin h3">Customer Profile</h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">Customer</div>
+        <div class="panel-body">
+            <form layout="column" name="customerprofileform" ng-cloak class="md-inline-form" novalidate ng-submit="customerprofileform.$valid && c.saveCustomer()">
+                <div layout-gt-sm="row">
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                            <div class="col-sm-6 text-center" style="margin-bottom: 20px;">
+                                <md-input-container>
+                                    <div style="height: 150px; width: 150px; background: url('{{c.profileImgUrl}}') no-repeat center center; -webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;border-radius: 50%; border: 2px solid #e1e1e1;"></div>
+                                </md-input-container>
+                                <div ng-show="c.uploadProcess" style="position: relative;top: -10px;">
+                                    <ul class="loading">
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
+                                <md-button ngf-drop ngf-select ng-model="c.cData.profilePic" ngf-multiple="false" ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'" class="md-raised md-primary" ng-change="c.uploadProfilePicture()" class="md-raised md-primary" style="background: none;color: rgb(84, 84, 84);border: 1px solid rgb(225, 225, 225);box-shadow: rgba(0, 0, 0, 0.156863) 0px 1px 5px 0px;">Upload Profile Picture</md-button>
+                            </div>
+                            <div class="col-sm-6">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>First Name</label>
+                                    <input ng-model="c.cData.firstName" disabled>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Last Name</label>
+                                    <input ng-model="c.cData.lastName" disabled>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>User Name</label>
+                                    <input ng-model="c.cData.userName" disabled>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Address1</label>
+                                <input type="text" ng-model="c.cData.addressLane1">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Address2</label>
+                                <input type="text" ng-model="c.cData.addressLane2">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>City</label>
+                                <input type="text" ng-model="c.cData.city">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>State</label>
+                                <input type="text" ng-model="c.cData.state">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Country</label>
+                                <md-select name="country" ng-model="c.cData.country" required>
+                                    <md-option ng-repeat="country in c.countries" value="{{country}}">{{country}}</md-option>
+                                </md-select>
+                                <div ng-messages="customerprofileform.country.$error">
+                                    <div ng-message="required">Country is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Postal Code</label>
+                                <input type="text" name="zipCode" ng-model="c.cData.zipCode" required>
+                                <div ng-messages="customerprofileform.zipCode.$error">
+                                    <div ng-message="required">Postal code is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <!--<label>Time Format</label>-->
+                                <!--<input ng-model="c.cData.timeFormat">-->
+                                <label>Time Format :</label>
+                                <!--<input ng-model="sp.spData.timeFormat">-->
+                                <md-switch ng-model="c.cData.timeFormat" aria-label="Time Format" ng-true-value="24" ng-false-value="12" class="md-warn" style="float: right;width: 50%; margin:0px !important;">
+                                    {{ c.cData.timeFormat }}
+                                </md-switch>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Time Zone</label>
+                                <!-- <input ng-model="c.cData.timeZone"> -->
+                                <timezone-selector ng-model="c.cData.timeZone" display-utc="true" sort-by="offset" show-local="true" set-local="true" primary-choices="UTC GB WET GMT Asia/Macau" width="400px" ng-model="timezone">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Email</label>
+                                <input ng-model="c.cData.email" type="email" required>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div layout-gt-sm="row">
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Security Question 1</label>
+                                <md-select name="country" ng-model="c.cData.securityQuestion1">
+                                    <md-option ng-repeat="questions in c.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Answer</label>
+                                <input type="text" ng-model="c.cData.answer1">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Security Question 2</label>
+                                <md-select name="country" ng-model="c.cData.securityQuestion2">
+                                    <md-option ng-repeat="questions in c.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Answer</label>
+                                <input type="text" ng-model="c.cData.answer2">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Security Question 3</label>
+                                <md-select name="country" ng-model="c.cData.securityQuestion3">
+                                    <md-option ng-repeat="questions in c.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Answer</label>
+                                <input type="text" ng-model="c.cData.answer3">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Current Mobile Number</label>
+                                <input ng-model="c.cData.mobilePhone" disabled>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Area Code</label>
+                                <input ng-model="c.cData.areaCode">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>New Mobile Number</label>
+                                <input ng-model="c.cData.newMobileNumber" type="number">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Area of Interest</label>
+                                <md-select name="country" ng-model="c.cData.country" required="true">
+                                    <md-option ng-repeat="interest in c.areaOfInterests" value="{{interest}}">{{interest}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="center start">
+                            <md-button type="submit" class="md-raised md-primary" flex="20">Save</md-button>
+                            <md-button class="md-raised md-warn" flex="20">Cancel</md-button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</md-content>

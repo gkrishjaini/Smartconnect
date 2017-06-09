@@ -1,0 +1,435 @@
+<style type="text/css" media="screen">
+    .md-calendar tr:hover {
+        cursor: pointer !important;
+        background: rgb(224,224,224) !important;
+    }
+    .md-calendar-date-selection-indicator {
+        border: none !important;
+    }
+    .md-calendar-selected-date .md-calendar-date-selection-indicator {
+        border: none !important;
+        background: none !important;
+        color: rgba(0,0,0,0.87) !important;
+    }
+    .md-calendar tr:hover .md-calendar-date-selection-indicator {
+        background:  rgb(224,224,224) !important;
+    }
+</style>
+<div class="bg-light lter b-b wrapper-md ng-scope" ng-if="c.user.type=='ServiceProviders'">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="m-n font-thin h3">Appointment</h1>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <input name="refNo" class="appmnt-ref-no-search" placeholder="Search Appointment by App.Ref No" ng-model="c.refNoSearch">
+            <button class="btn btn-info" ng-click="c.searchAppointment(c.refNoSearch)">Search</button>
+        </div>
+    </div>
+</div>
+<div class="jumbotron text-center" ng-show="sp.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Appointments...</p>
+</div>
+<div class="wrapper-md appointment-shedule" ng-if="c.user.type=='ServiceProviders'">
+    <tabset class="tab-container">
+        <ul class="nav nav-tabs">
+            <li class="ng-isolate-scope" ng-class="{active : c.steps.step1.active, display : c.steps.step1.display}" ng-click="c.changeTabView('step1')">
+                <a class="ng-binding" href=""><span class="rounded-label">1</span>Search {{c.displayText}}</a>
+            </li>
+            <li class="ng-isolate-scope" ng-class="{active : c.steps.step2.active, display : c.steps.step2.display}" ng-click="c.changeTabView('step2')">
+                <a class="ng-binding" href=""><span class="rounded-label">2</span>Choose {{c.displayText}}</a>
+            </li>
+            <li class="ng-isolate-scope" ng-class="{active : c.steps.step3.active, display : c.steps.step3.display}" ng-click="c.changeTabView('step3')">
+                <a class="ng-binding" href=""><span class="rounded-label">3</span>Choose Appointment</a>
+            </li>
+            <li class="ng-isolate-scope"  ng-class="{active : c.steps.step4.active, display : c.steps.step4.display}" ng-click="c.changeTabView('step4')">
+                <a class="ng-binding" href=""><span class="rounded-label">4</span>Requirements</a>
+            </li>
+            <li class="ng-isolate-scope" ng-class="{active : c.steps.step5.active, display : c.steps.step5.display}" ng-click="c.changeTabView('step5')">
+                <a class="ng-binding" href=""><span class="rounded-label">5</span>Appointment Time</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="c.steps.step1.display ? 'active' : '';" style="padding-bottom: 0px;">
+                <div class="panel panel-default" style="border: none; margin-bottom: 0px;">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By Name</label>
+                                    <input ng-model="c.searchItems.firstName" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By Area Code</label>
+                                    <input ng-model="c.searchItems.areaCode" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By City</label>
+                                    <input ng-model="c.searchItems.city" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By Phone Number</label>
+                                    <input ng-model="c.searchItems.mobilePhone" type="text">
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By Username</label>
+                                    <input ng-model="c.searchItems.userName" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By Country</label>
+                                    <input ng-model="c.searchItems.country" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By zipCode</label>
+                                    <input ng-model="c.searchItems.zipCode" type="text">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Search By State</label>
+                                    <input ng-model="c.searchItems.state" type="text">
+                                </md-input-container>
+                                
+                                <button class="btn btn-info pull-right" ng-show="c.searchItems" ng-click="c.searchSpCustomer();">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="c.steps.step2.display ? 'active' : '';">
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- fields -->
+                        <div class="form-horizontal">
+                            <div layout-gt-sm="row">
+                                <div class="col-md-12" style="padding:0">
+                                    <div class="vbox" style="border-right:1px solid #dee5e7;height:100%;">
+                                        <div class="wrapper-xs b-b">
+                                            <div class="input-group m-b-xxs">
+                                                <span class="input-group-addon input-sm no-border no-bg"><i class=" icon-magnifier text-md m-t-xxs"></i></span>
+                                                <p style="margin-top: 10px;margin-right: 5px;cursor: pointer;">Select {{c.displayText}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row-row">
+                                            <div class="cell scrollable hover">
+                                                <div class="cell-inner">
+                                                    <div class="m-t-n-xxs">
+                                                        <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                                                            <a ng-repeat="item in c.correspondingUser" class="list-group-item m-l" ng-class="{'select m-l-none': item.selected }" ng-click="c.selectItem(item)">
+                                                                <span class="block text-ellipsis m-l-n text-md" ng-class="{'m-l-none': item.selected }">
+                                                                    {{ item.firstName }}<strong> {{ item.lastName }}</strong>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center pos-abt w-full" style="top:50%;" ng-hide="( c.correspondingUser  | filter:{group:filter} | filter:query).length">No ServiceProviders</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / fields -->
+                    </div>
+                    <div class="col-md-8">
+                        <div style="padding: 40px 40px 0; min-height: 300px;overflow: hidden;">
+                            <div class="options-wrapper" data-ng-show="!isEmpty(c.selectedItem)">
+                                <i style="float: right;padding-left: 20px;" class=" fa-ellipsis-v fa text-md m-t-xxs" data-ng-click="c.showTip = !c.showTip"></i></span>
+                                <div class="option-selector-sp" ng-show="c.showTip" data-ng-click="c.showTip = !c.showTip">
+                                    <li data-ng-click="c.showEmailBox($event)">Send Email</li>
+                                    <li>Write a Review</li>
+                                    <li>Knowlegde Base</li>
+                                    <li>Requirements for this Application</li>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div style="height: 200px;display: table;width: 100%;">
+                                        <div class="profile-view-img-ame">
+                                            <div class="profile-pic">
+                                                <div class="thumb-lg avatar inline">
+                                                    <img ng-src="uploads/profilepics/{{c.selectedItem.profilePicUrl}}" ng-show="c.selectedItem.profilePicUrl">
+                                                </div>
+                                            </div>
+                                            <div class="profile-name h1  font-thin">
+                                                {{c.selectedItem.firstName}} {{c.selectedItem.lastName}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Appointment Details -->
+                                    <div class="form-group m-b-sm" data-ng-if="c.user.type=='ServiceProviders'" ng-hide="!c.appontmentItem.appointmentDate">
+                                        <label class="col-sm-5 control-label">Appointment Date</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static" ng-bind="c.appontmentItem.appointmentDate |  date:'MM/dd/yyyy'"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" ng-hide="!c.appontmentItem.appointmentTime">
+                                        <label class="col-sm-5 control-label">Appointment Time</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.appontmentItem.appointmentTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" data-ng-if="c.user.type=='ServiceProviders'" ng-hide="!c.appontmentItem.spot">
+                                        <label class="col-sm-5 control-label">Appointment Type</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.appontmentItem.spot == true ? 'SPOT' : 'Not SPOT' }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- END Appointment Details -->
+                                    <div class="form-group m-b-sm" ng-hide="!c.selectedItem.mobilePhone">
+                                        <label class="col-sm-5 control-label">Mobile</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.selectedItem.mobilePhone}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" ng-hide="!c.selectedItem.userName">
+                                        <label class="col-sm-5 control-label">Email</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.selectedItem.userName}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" ng-hide="!c.selectedItem.areaCode">
+                                        <label class="col-sm-5 control-label">Area Code</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.selectedItem.areaCode}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" ng-hide="!c.selectedItem.zipCode">
+                                        <label class="col-sm-5 control-label">Postal Code</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.selectedItem.zipCode}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-sm" ng-hide="!c.selectedItem.country">
+                                        <label class="col-sm-5 control-label">Country</label>
+                                        <div class="col-sm-7">
+                                            <p class="form-control-static">{{c.selectedItem.country}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane-bottom">
+                    <button class="btn btn-info pull-right" ng-show="c.selectedItem" ng-click="c.selectedItem ? (c.steps.step2 = {display: false, active: true}) : c.steps={display: false, active: false}; c.getAppointmentType();c.resetDropdown()">Next</button>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="c.steps.step3.display ? 'active' : '';">
+                <div layout-gt-sm="row">
+                    <div class="col-md-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="form-control-static">
+                                        <md-select placeholder="Appointment Type" ng-model="c.appointmentType" ng-change="c.getAppointmentCategory()">
+                                            <md-option ng-repeat="item in c.appointmentTypeCollection" ng-value="item.appointmentType">
+                                                {{item.appointmentType}}
+                                            </md-option>
+                                        </md-select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="form-control-static">
+                                        <md-select placeholder="Appointment Category" ng-model="c.appointmentCategory" ng-change="c.getAppointmentSubCategory()">
+                                            <md-option ng-repeat="item in c.appointmentCategoryCollection" ng-value="item.appointmentCategory">
+                                                {{item.appointmentCategory}}
+                                            </md-option>
+                                        </md-select>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="form-control-static">
+                                        <md-select placeholder="Appointment Sub Category" ng-model="c.appointmentSubCategory" ng-change="c.getAppointmentName()">
+                                            <md-option ng-repeat="item in c.appointmentSubCategoryCollection" ng-value="item.appointmentSubCategory">
+                                                {{item.appointmentSubCategory}}
+                                            </md-option>
+                                        </md-select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="form-control-static">
+                                        <md-select placeholder="Select Appointment" ng-model="c.appointmentId" ng-change="c.getAppointment()">
+                                            <md-option ng-repeat="item in c.appointmentNameCollection" ng-value="item._id">
+                                                {{item.appointmentName}}
+                                            </md-option>
+                                        </md-select>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane-bottom">
+                    <button class="btn btn-info pull-right" ng-show="c.appointmentId.length" ng-click="c.steps.step4 = {display: true, active: true} ;c.steps.step3 = {display: false, active: true};">Next</button>
+                </div>
+            </div>
+             <div class="tab-pane"  ng-class="c.steps.step4.display ? 'active' : '';">
+                 <form name="c.answerform" class="form-horizontal">
+                <div layout-gt-sm="row">
+                    
+                    <div class="col-sm-6">
+                        <div class="row" ng-repeat="item in c.appointmentQuestions" ng-if="item.question">
+                            <label class="col-sm-5 control-label">{{item.question}}</label>
+                            <div class="hidden" ng-init="c.appointmentData.questions[$index].question = item.question"></div>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">
+                                    <md-input-container class="md-block" flex-gt-sm style="margin: 0;">
+                                        <label>Answer</label>
+                                        <input name="questions[$index]" ng-model="c.appointmentData.questions[$index].answer" ng-required="item.required ? true : false">
+                                        <div ng-messages="c.answerform.questions[$index].$error">
+                                            <div ng-message="required">Answer is required</div>
+                                        </div>
+                                    </md-input-container>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane-bottom">
+                    <button class="btn btn-info pull-right"  ng-show="!c.answerform.$invalid" ng-click="c.steps.step5 = {display: true, active: true} ;c.steps.step4 = {display: false, active: true}; ">Next</button>
+                </div>
+                </form>
+            </div> 
+            <div class="tab-pane appointment-week-calender " ng-class="c.steps.step5.display ? 'active' : '';">
+                <div class="panel-heading">
+                    <div class="panel-body">
+                        <form name="c.appointmentForm" novalidate class="form-horizontal" ng-submit="c.appointmentForm.$valid && c.saveAppointmentDetails()">
+                            <div layout-gt-sm="row">
+                                <div class="col-md-6" ng-hide="main.user.appointmentOption == 'Default'">
+                                     <md-content class="md-block" flex-gt-sm ng-show="c.appointmentEmployeeCollection.length" style="margin-top: 20px;">
+                                        <md-checkbox  ng-disabled="c.toEdit" ng-model="c.anyEmployee" ng-click="c.selectAnyEmployee()" aria-label="Checkbox 1" >Any Employee</md-checkbox>
+                                    </md-content>
+                                    <md-content class="md-block" flex-gt-sm ng-show="c.appointmentEmployeeCollection.length">
+                                        <md-select placeholder="Select Employees" ng-model="c.appointmentData.employeeId" ng-change="c.resetAppointmentView()" ng-disabled="c.anyEmployee">
+                                            <md-option ng-repeat="item in c.appointmentEmployeeCollection" ng-value="item.employeeID">
+                                                {{item.employeeName}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-content>
+                                    <md-content class="md-block" flex-gt-sm ng-show="c.spot" style="margin-top: 20px;">
+                                        <md-checkbox ng-model="c.apSpot" ng-change="c.spotCheck()" aria-label="Checkbox 1" ng-disabled="c.toEdit || c.anyEmployee">Walk in SPOT/Q</md-checkbox>
+                                    </md-content>
+                                </div>
+                                <div class="col-md-6" ng-class="c.steps.step5 ? 'active' : '';">
+
+                                    <md-content class="md-block" flex-gt-sm style="overflow: hidden; margin-top: 10px;">
+                                        <md-datepicker name="appointmentDate"  ng-disabled="c.setDisable" ng-change="c.getAppointmentSlots()" ng-model="c.appointmentData.appointmentDate" ng-model-options="{timezone: 'UTC'}" md-min-date="c.minDate" md-max-date="main.user.appointmentOption == 'Regular' ? c.maxDate : '';" md-placeholder="Appointment Date" ng-required="!c.setDisable"></md-datepicker>
+                                        <div class="validation-messages" ng-show="!c.setDisable" ng-messages="c.appointmentForm.appointmentDate.$error">
+                                            <div ng-message="required">Appointment date is required!</div>
+                                        </div>
+                                        <div class="custome-week-date" ng-show="!c.setDisable">
+                                            <span data-ng-bind="c.pickerWeekStartEndDateLabel"></span>
+                                        </div>
+                                    </md-content>
+                                    <div class="prev-spot-details" data-ng-show="c.prevSpotDetails">
+                                        <p><b>Last Appointment Details</b>: {{c.prevSpotDetails.appointmentTime}} ({{c.prevSpotDetails.customerName}})</p>
+                                    </div>
+                                    <md-input-container class="md-block" flex-gt-sm ng-show="c.setDisable">
+                                        <md-content class="md-block" flex-gt-sm>
+                                            <label>Appointment time</label>
+                                            <input name="customeTime" type="text" ng-model="c.appointmentData.customeTimeampm" autocomplete="off" ng-required="c.setDisable" ng-pattern="c.patternValid">
+                                              <div class="" style="position:absolute;right:100px; top:0px" ng-show="c.timeformat == '12'" ><button type="button" class="btn btn-default btn-sm" ng-init="c.ampm='AM'" ng-click="c.toggle()" ng-init="" ng-model="c.ampm" >{{c.ampm}}</button></div>
+                                            <div class="hint">## : ##</div>
+                                            <div ng-messages="c.appointmentForm.customeTime.$error">
+                                                <div ng-message="required">Appointment time is required!</div>
+                                                <div ng-message="pattern">Please provide a valid time!</div>
+                                            </div>
+                                        </md-content>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            
+                        <!-- View week data -->
+                        <div class="week-view-wrapper" ng-show="c.appointmentSlots.appointmentSlots.length && !c.apSpot" style="margin-top: 50px;">
+                            <div class="week-view-controller">
+                                <P style="font-size: 20px;float: left; padding-left: 15px; margin-bottom: 0;">{{c.calenderMonth}}</P>
+                                <button class="btn week-view-controller-button" ng-click="c.getWeekViewNewWeek('prev')" type="button">Prev Week</button>
+                                <button class="btn week-view-controller-button" ng-click="c.getWeekViewNewWeek('next')" type="button">Nex Week</button>
+                            </div>
+                            <div class="week-view-box">
+                                <ul style="width: 100%; display: flex; overflow: hidden;">
+                                    <li class="week-view-li">
+                                        <div class="week-view-li-heading" style="height: 69px;"></div>
+                                        <div class="timeAxis week-view-slotes" ng-repeat="time in c.appointmentSlots.xAxisTime">
+                                            {{time}}
+                                        </div>
+                                    </li>
+
+                                    <li class="week-view-li" ng-repeat="slotes in c.appointmentSlots.appointmentSlots track by $index" >
+                                        <div class="week-view-li-heading" ng-init="month = slotes.day.month;">
+                                            <div class="week-view-li-date">{{slotes.day.date}}</div>
+                                            <div class="week-view-li-day">{{slotes.day.day}}</div>
+                                        </div>
+
+                                        <div class="week-view-slotes-wrapper" ng-class="{'not-valid-day': !slotes.valid}">
+                                        
+                                            <div class="week-view-slotes" ng-repeat="sloteItem in slotes.slots" ng-init="toCheck[$index] = slotes.day.itemDate + sloteItem.time" ng-click="c.chooseApTime(sloteItem.time, slotes.day.itemDate, sloteItem.available,sloteItem.late); c.sheduleSlot(toCheck[$index]) " class="available" ng-class="{notavailable: !sloteItem.available, selectedItemactive: toCheck[$index] == c.activeItemSlot,late : sloteItem.late }" >
+ 
+                                                <span ng-init="status = sloteItem.available ? 'Available' : 'Not Available'; icon = sloteItem.available ? 'icon-check' : 'icon-close';"> 
+                                                    <!-- {{sloteAm.from}}  -->
+                                                    <i   ng-hide="sloteItem.type" ng-class="{notavailable: !sloteItem.available}" class="{{icon}} text-md m-t-xxs week-view-icon"></i>
+
+                                                    <span ng-class="{breaktime: sloteItem.type == 'break'}" ng-show="sloteItem.type">Break time</span>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <md-button type="submit" ng-disabled="c.disableFormAppointment" class="pull-right md-raised md-primary" flex="30" ><span ng-show="!c.toEdit">Submit</span><span ng-show="c.toEdit">Update</span></md-button>
+
+                        <md-button type="button" ng-show="c.toEdit" ng-disabled="c.disableFormAppointment" class="pull-right md-raised md-raised" ng-click="c.cancelAppointment()" flex="30" >Canel Appointment</md-button>
+
+                        <div layout="row" layout-align="start">
+
+                        <div class="col-md-6">
+                            <div class="row show-hide-message" ng-show="c.message">
+                                <div class="col-sm-12">
+                                    <div class="alert alert-info" ng-show="!c.error">
+                                        {{ c.message }}
+                                    </div>
+                                    <div class="alert alert-danger" ng-show="c.error">
+                                        {{ c.message }}
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </tabset>
+    </div>

@@ -1,0 +1,81 @@
+<md-dialog  flex="60" aria-label="Create lookup value" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>Appointment Details</h3>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="padding-bottom: 30px;">
+        <div class="md-dialog-content">
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Appointment Name</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static ng-binding">{{appointmentReportItem.appointmentName}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Date / Time</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{appointmentReportItem.appointmentDate | date:'MM/dd/yyyy'}} {{appointmentReportItem.appointmentTime}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Type</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static ng-binding" ng-init="spot = appointmentReportItem.spot ? 'Spot' : 'Regular';">{{spot}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Confirmation Number</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{appointmentReportItem.appRefNo}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Customer Name</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{appointmentReportItem.customerName}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Customer Email</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{appointmentReportItem.customerEmail}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Customer Mobile</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{appointmentReportItem.customerMobile}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Employee Name</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static ng-binding">{{appointmentReportItem.employeeName}}</p>
+                </div>
+            </div>
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Status</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static ng-binding">{{appointmentReportItem.status}}</p>
+                </div>
+            </div>
+
+            <div class="form-group m-b-sm" aria-hidden="false">
+                <label class="col-sm-5 control-label">Qustions and Answers</label>
+                <div class="col-sm-7">
+                    <ul style="list-style: decimal-leading-zero; padding-left: 20px;;">
+                        <li ng-repeat="item in appointmentReportItem.answers">
+                            <p> <b>{{item.question}}</b> </p>
+                            <p style="padding-left: 10px; margin-top: -5px;"> {{item.answer}} </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

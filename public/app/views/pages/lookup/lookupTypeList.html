@@ -1,0 +1,15 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h1 class="m-n font-thin h3">Lookup Types</h1>
+</div>
+<md-content layout-padding>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <md-button ng-if="main.user.corporateLogin === true" class="md-raised md-primary" ng-click="l.showCreateLookupTypePopup($event)">Add Lookup Type</md-button>
+        </div>
+    </div>
+    <div class="wrapper-md ng-scope">
+        <div class="panel panel-default">
+            <div ui-grid="l.DisplaylookupList" class="ui-grid grid " ui-grid-pagination> </div>
+        </div>
+    </div>
+</md-content>

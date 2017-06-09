@@ -1,0 +1,62 @@
+<!--<div class="page-header">
+    <h1>
+ Employees
+ <a href="/employee/create" class="btn btn-default">
+ <span class="glyphicon glyphicon-plus"></span>
+New Employee
+ </a>
+ </h1>
+
+</div> -->
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <h1 class="m-n font-thin h3">Employees</h1>
+        </div>
+        <div class="col-md-6 col-sm-6" style="text-align: right;">
+            <form>
+                <input class="top-search-box" placeholder="Employee Name" ng-keyup="e.getEmployeeList()" ng-model="e.employeeSearchValue">
+                <input type="submit" class="btn btn-info" ng-click="e.searchEmployee()"  value="Search">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="jumbotron text-center" ng-show="e.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Employees ...</p>
+</div>
+<!--<div class="wrapper-md ng-scope">
+    <div class="panel panel-default" ng-if="e.employees">
+        <table class="table table-bordered table-striped" ng-if="e.employees">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Status</th>
+                    <th>Designation</th>
+                    <th>Role</th>
+                    <th class="col-sm-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in e.employees">
+                    <td>{{ employee.userName }}</td>
+                    <td>{{ employee.status }}</td>
+                    <td>{{ employee.designation }}</td>
+                    <td>{{ employee.role }}</td>
+                    <td class="col-sm-2">
+                        <a ng-href="/employee/{{ employee._id }}" class="btn btn-danger">Edit</a>
+                        <a ng-click="e.showConfirm( employee._id)" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+     
+    </div>
+</div>-->
+<div class="wrapper-md ng-scope">
+    <div class="panel panel-default" >
+              <div ui-grid="e.DisplayEmployee"  class="ui-grid grid "  ui-grid-pagination  > </div>
+    </div>
+</div>
+  

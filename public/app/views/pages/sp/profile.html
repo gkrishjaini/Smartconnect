@@ -1,0 +1,341 @@
+<md-content layout-padding>
+    <div class="bg-light lter b-b wrapper-md ng-scope">
+        <h1 class="m-n font-thin h3">Service Provider Profile</h1>
+    </div>
+    <div class="panel panel-default">
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Profile">
+                    <md-content class="md-padding">
+                        <div class="panel-heading font-bold">Edit profile</div>
+                        <div class="panel-body">
+                            <form name="spForm" class="form-horizontal" ng-submit="sp.spData.appointmentOption == 'Default' ? spForm.$valid && sp.saveServiceProvider() : sp.saveServiceProvider();" >
+                                <div layout-gt-sm="row">
+                                    <div class="col-sm-6">
+                                        <div layout-gt-sm="row">
+                                            <div class="col-sm-6 text-center" style="margin-bottom: 20px;">
+                                                <md-input-container>
+                                                    <!-- <img style="width: 100%;" src="{{sp.profileImgUrl}}" alt=""> -->
+                                                    <div style="height: 150px; width: 150px; background: url('{{sp.profileImgUrl}}') no-repeat center center; -webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;border-radius: 50%; border: 2px solid #e1e1e1;"></div>
+                                                </md-input-container>
+                                                <div ng-show="sp.uploadProcess" style="position: relative;top: -10px;">
+                                                    <ul class="loading">
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li></li>
+                                                    </ul>
+                                                </div>
+                                                <md-button ngf-drop ngf-select ng-model="sp.spData.profilePic" ngf-multiple="false" ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'" class="md-raised md-primary" ng-change="sp.uploadProfilePicture()" class="md-raised md-primary" style="background: none;color: rgb(84, 84, 84);border: 1px solid rgb(225, 225, 225);box-shadow: rgba(0, 0, 0, 0.156863) 0px 1px 5px 0px;">Upload Profile Picture</md-button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>First Name</label>
+                                                    <input ng-model="sp.spData.firstName" disabled>
+                                                </md-input-container>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Last Name</label>
+                                                    <input ng-model="sp.spData.lastName" disabled>
+                                                </md-input-container>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>User Name</label>
+                                                    <input ng-model="sp.spData.userName" disabled>
+                                                </md-input-container>
+                                            </div>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Busiuness Category</label>
+                                                <md-select name="categories" ng-model="sp.spData.businessCategory" required>
+                                                    <md-option ng-repeat="category in sp.businessCategories" value="{{category}}">{{category}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Busiuness Area</label>
+                                                <md-select name="area" ng-model="sp.spData.businessArea" required>
+                                                    <md-option ng-repeat="area in sp.businessAres" value="{{area}}">{{area}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Tax ID</label>
+                                                <input ng-model="sp.spData.taxId">
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Appointment Option</label>
+                                                <md-select name="country" ng-model="sp.spData.appointmentOption" required>
+                                                    <md-option ng-repeat="appointmentOption in sp.appointmentOptions" value="{{appointmentOption}}">{{appointmentOption}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Address1</label>
+                                                <input ng-model="sp.spData.addressLane1">
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Address2</label>
+                                                <input ng-model="sp.spData.addressLane2">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>City</label>
+                                                <input ng-model="sp.spData.city">
+                                            </md-input-container>
+                                            
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Postal Code</label>
+                                                <input type="text" name="zipCode" ng-model="sp.spData.zipCode" required>
+                                                <div ng-messages="spForm.zipCode.$error">
+                                                    <div ng-message="required">Postal code is required!</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>State</label>
+                                                <input ng-model="sp.spData.state">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Country</label>
+                                                <md-select name="country" ng-model="sp.spData.country">
+                                                    <md-option ng-repeat="country in sp.countries" value="{{country}}">{{country}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Area Code</label>
+                                                <input ng-model="sp.spData.areaCode" type="text">
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Mobile Phone</label>
+                                                <!-- <span>{{sp.spData.areaCode}}</span> -->
+
+                                                <input style="display: inline-block" ng-model="sp.spData.mobilePhone">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Security Question 1</label>
+                                                <md-select name="country" ng-model="sp.spData.securityQuestion1">
+                                                    <md-option ng-repeat="questions in sp.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Answer</label>
+                                                <input type="text" ng-model="sp.spData.answer1">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Security Question 2</label>
+                                                <md-select name="country" ng-model="sp.spData.securityQuestion2">
+                                                    <md-option ng-repeat="questions in sp.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Answer</label>
+                                                <input type="text" ng-model="sp.spData.answer2">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Security Question 3</label>
+                                                <md-select name="country" ng-model="sp.spData.securityQuestion3">
+                                                    <md-option ng-repeat="questions in sp.securityQuestions" value="{{questions}}">{{questions}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Answer</label>
+                                                <input type="text" ng-model="sp.spData.answer3">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Current Email Address</label>
+                                                <input ng-model="sp.spData.email" disabled>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>New Email Address</label>
+                                                <input ng-model="sp.spData.newEmailAddress">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Contact Person</label>
+                                                <input ng-model="sp.spData.contactPerson">
+                                            </md-input-container>
+                                            
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Contact Phone</label>
+                                                <input ng-model="sp.spData.contactPhone" type="number">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Time Zone</label>
+                                                <!-- <input ng-model="sp.spData.timeZone"> -->
+
+                                                <timezone-selector ng-model="sp.spData.timeZone" display-utc="true" sort-by="offset" show-local="true" set-local="true" primary-choices="UTC GB WET GMT Asia/Macau" width="400px" ng-model="timezone">
+                                            </md-input-container>
+                                            <md-input-container class="md-block " flex-gt-sm>
+                                                <label>Time Format:</label>
+                                                <md-switch ng-model="sp.spData.timeFormat" aria-label="Time Format" ng-true-value="'24'" ng-false-value="'12'" class="md-warn" style="float: right;width: 50%; margin:0px !important;" ng-change="sp.spData.appointmentOption == 'Default' ? sp.patternValid =  sp.spData.timeFormat == '12' ? sp.patterAmPm : sp.patternRailway : ''; sp.spData.appointmentOption == 'Default' ? ''  : ''">
+
+                                                <!-- sp.toggle(2,spForm.endTime) sp.toggle(3,spForm.breakStartTime) sp.toggle(4,spForm.breakEndTime) -->
+                                                    {{ sp.spData.timeFormat }}
+                                                </md-switch>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row" ng-show="sp.spData.appointmentOption == 'Default'">
+                                            <md-content class="md-block" flex-gt-sm>
+                                                <label>Effective Start Date</label><br>
+                                                <md-datepicker name="effectiveFrom" ng-model="sp.spData.effectiveFrom" md-placeholder="Effective From Date" ng-required="sp.spData.appointmentOption == 'Default'"></md-datepicker>
+                                                <div class="validation-messages" ng-messages="spForm.effectiveFrom.$error">
+                                                    <div ng-message="required">Effective from-date is required!</div>
+                                                </div>
+                                            </md-content>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Average Appoinment Time(minute)</label>
+                                                <input name="averageAppoinmentTime" type="text" ng-model="sp.spData.averageAppoinmentTime"  autocomplete="off" ng-required="sp.spData.appointmentOption == 'Default'" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/">
+                                                <div class="hint">##</div>
+                                                <div ng-messages="spForm.averageAppoinmentTime.$error">
+                                                    <div ng-message="required">Average appointment time is required!</div>
+                                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row" ng-show="sp.spData.appointmentOption == 'Default'">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Start time</label>
+                                                <input name="startTime" type="text" ng-model="sp.spData.startTime" autocomplete="off" ng-required="sp.spData.appointmentOption == 'Default'" ng-pattern="sp.patternValid">
+                                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.spData.timeFormat==12">
+                                                    <button type="button" class="btn btn-default btn-sm" ng-click="sp.toggle(1)" ng-model="sp.spData.startampm">{{sp.spData.startampm}}</button>
+                                                </div>
+                                                <div class="hint">## : ##</div>
+                                                <div ng-messages="spForm.startTime.$error">
+                                                    <div ng-message="required">Working hours is required!</div>
+                                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>End time</label>
+                                                <input name="endTime" type="text" ng-model="sp.spData.endTime" autocomplete="off" ng-blur="sp.validateTime(spForm.endTime)" ng-required="sp.spData.appointmentOption == 'Default'" ng-pattern="sp.patternValid" ng-disabled="!sp.spData.startTime">
+                                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.spData.timeFormat == 12">
+                                                    <button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.spData.startTime" ng-click="sp.toggle(2,spForm.endTime)" ng-model="sp.spData.endampm">{{sp.spData.endampm}}</button>
+                                                </div>
+                                                <div class="hint">## : ##</div>
+                                                <div ng-messages="spForm.endTime.$error" role="alert">
+                                                    <div ng-message="required">Working hours is required!</div>
+                                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                                    <div ng-repeat="errorMessage in sp.eTeerrorMessages">
+                                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                                    </div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row" ng-show="sp.spData.appointmentOption == 'Default'">
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Break Start time</label>
+                                                <input name="breakStartTime" type="text" ng-model="sp.spData.breakStartTime" ng-blur="sp.validateTime(spForm.breakStartTime)" autocomplete="off" ng-required="sp.spData.appointmentOption == 'Default'" ng-pattern="sp.patternValid" ng-disabled="!sp.spData.endTime">
+                                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.spData.timeFormat==12">
+                                                    <button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.spData.endTime" ng-click="sp.toggle(3,spForm.breakStartTime)" ng-model="sp.spData.breakstartampm">{{sp.spData.breakstartampm}}</button>
+                                                </div>
+                                                <div class="hint">## : ##</div>
+                                                <div ng-messages="spForm.breakStartTime.$error">
+                                                    <div ng-message="required">Break start time is required!</div>
+                                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                                    <div ng-repeat="errorMessage in sp.bSerrorMessages">
+                                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                                    </div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Break End time</label>
+                                                <input name="breakEndTime" type="text" ng-model="sp.spData.breakEndTime" ng-blur="sp.validateTime(spForm.breakEndTime)" autocomplete="off" ng-required="sp.spData.appointmentOption == 'Default'" ng-pattern="sp.patternValid" ng-disabled="!sp.spData.breakStartTime">
+                                                <div class="" style="position:absolute;right: 21px;top:0" ng-show="sp.spData.timeFormat==12">
+                                                    <button type="button" class="btn btn-default btn-sm" ng-disabled="!sp.spData.breakStartTime" ng-click="sp.toggle(4,spForm.breakEndTime)" ng-model="sp.spData.breakendampm">{{sp.spData.breakendampm}}</button>
+                                                </div>
+                                                <div class="hint">## : ##</div>
+                                                <div ng-messages="spForm.breakEndTime.$error">
+                                                    <div ng-message="required">Break end time is required!</div>
+                                                    <div ng-message="pattern">Please provide a valid time!</div>
+                                                    <div ng-repeat="errorMessage in sp.bEerrorMessages">
+                                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                                    </div>
+                                                </div>
+                                                <md-button type="button" ng-click="sp.showRequirements()" class="md-raised md-primary pull-right" flex="60">Requirements</md-button>
+
+                                            </md-input-container>
+                                        </div>
+                                        <div layout="row" layout-align="center start">
+
+                                            <md-button type="submit" class="md-raised md-primary"  ng-disabled="spForm.$invalid"  flex="20">Save</md-button>
+                                            <md-button class="md-raised md-warn" flex="20">Cancel</md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row show-hide-message" ng-show="sp.message">
+                                <div class="col-sm-6">
+                                    <div class="alert alert-info">
+                                        {{ sp.message }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Content upload">
+                    <md-content class="md-padding">
+                        <div ngf-drop ngf-select ng-model="sp.spData.files" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" accept="image/*,video/*" ngf-pattern="'image/*,video/*'">Drop images here or click here to upload</div>
+                        Selected Files:
+                        <ul>
+                            <li ng-repeat="f in sp.spData.files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+                        </ul>
+                        <pre>{{sp.log}}</pre>
+                        <div layout="row" layout-align="center center">
+                            <md-button type="submit" class="md-raised md-primary" ng-click="sp.upload()">Upload Files</md-button>
+                            <md-button class="md-raised md-warn" ng-click="sp.clear()">Clear</md-button>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Uploaded Contents" data-ng-click="sp.viewUploadedContents()">
+                    <md-content class="md-padding">
+                        <div class="row upload-data-content-over-wrapper">
+                            <div class="col-lg-4 col-md-6 col-sm-6 uploaded-files-wrapper" ng-repeat="file in sp.uploadContents">
+                                <div class="panel panel-default">
+                                    <div class="panel-body upload-data-content-over">
+                                        <div data-ng-if="file.type == 'image/jpeg'">
+                                            <div class="upload-data-content-delete" data-ng-click="sp.deletUploadedFile(file._id)">
+                                                <i class="icon-close"></i>
+                                            </div>
+                                            <a href="{{'/uploads/' + file.fileName}}">
+                                                <div class="test-popup-link upload-data-content-image" style="background:url({{'/uploads/' + file.fileName}});"></div>
+                                            </a>
+                                        </div>
+                                        <div data-ng-if="file.type == 'video/mp4'" class="video-player-custom">
+                                            <div class="upload-data-content-delete" data-ng-click="sp.deletUploadedFile(file._id)">
+                                                <i class="icon-close"></i>
+                                            </div>
+                                            <video id="myVideo" class="video-js vjs-default-skin" controls preload="none" width="100%" height="264" poster="http://vjs.zencdn.net/v/oceans.png">
+                                                <source src="{{'/uploads/' + file.fileName}}" type="{{file.type}}">
+                                            </video>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="!sp.uploadContents.length" class="alert alert-info ng-binding">Sorry, No uploaded Contents to Show.</div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</md-content>
