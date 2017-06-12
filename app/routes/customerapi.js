@@ -1701,7 +1701,7 @@ userCollection.findOne({ _id: req.params.id }, function (err, user) {
         client.transmissions.send({
             transmissionBody: {
                 content: {
-                    from: 'info@adroitminds.com',
+                    from: 'support@weresol.com',
                     subject: req.body.subject,
                     template_id: 'smart-connect-appointment',
                 },
@@ -1888,7 +1888,7 @@ userCollection.findOne({ _id: req.params.id }, function (err, user) {
         client.transmissions.send({
             transmissionBody: {
                 content: {
-                    from: 'info@adroitminds.com',
+                    from: 'support@weresol.com',
                     subject: message.subject,
                     html: message.body
                 },

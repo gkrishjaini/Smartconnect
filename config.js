@@ -5,7 +5,7 @@ module.exports = {
     //database: 'mongodb://localhost/smart-connections',
 
     secret: 'aDrOiTmInDsSoFtWaReLaBsKiNfRaKaZhAkUtTaM',
-    sparkpostKey:'cc6d4a18df7bed49a34989f73a006ddc1a7eef7d',
+    sparkpostKey:'eca62a7c170146414054321e6783322180d09013',
     twilio : {
     	accountSid: 'AC1a4563304a5722b5be786629cdb37724',
         authToken: '21ef12f26890099f514c379c8c580015'

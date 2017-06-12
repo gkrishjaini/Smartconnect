@@ -293,7 +293,7 @@ module.exports = function(app, express) {
                             client.transmissions.send({
                                     transmissionBody: {
                                         content: {
-                                            from: 'info@adroitminds.com',
+                                            from: 'support@weresol.com',
                                             subject: 'Employee account',
                                             html: 'Hello ' + req.body.firstName + ',<br><br> Your employee account has been created!'
                                         },
@@ -325,7 +325,7 @@ module.exports = function(app, express) {
             client.transmissions.send({
                 transmissionBody: {
                     content: {
-                        from: 'info@adroitminds.com',
+                        from: 'support@weresol.com',
                         subject: message.subject,
                         html: message.body,
                         attachments: attachments

@@ -397,7 +397,7 @@ module.exports = function (app, express) {
                                     client.transmissions.send({
                                         transmissionBody: {
                                             content: {
-                                                from: 'info@adroitminds.com',
+                                                from: 'support@weresol.com',
                                                 subject: 'Change Password',
                                                 html: 'Hello ' + entity.firstName + ',<br><br> Please click on the link to change your password.<br><a href="' + link + '">Click here </a>'
                                             },
@@ -688,7 +688,7 @@ module.exports = function (app, express) {
                             client.transmissions.send({
                                 transmissionBody: {
                                     content: {
-                                        from: 'info@adroitminds.com',
+                                        from: 'support@weresol.com',
                                         subject: 'Please verify your Account',
                                         html: 'Hello ' + req.body.firstName + ',<br><br> Please Click on the link to verify your email.<br><a href="' + link + '">Click here to verify</a>'
                                     },
@@ -1090,7 +1090,7 @@ module.exports = function (app, express) {
                 client.transmissions.send({
                     transmissionBody: {
                         content: {
-                            from: 'info@adroitminds.com',
+                            from: 'support@weresol.com',
                             subject: subject,
                             html: message
                         },
